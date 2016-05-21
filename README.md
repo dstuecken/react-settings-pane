@@ -16,6 +16,9 @@ npm i react-settings-pane --save
 
 Demo file in repository: ./examples/index.html
 
+<img src="https://raw.githubusercontent.com/dstuecken/react-settings-pane/master/examples/demo.png" width="500">
+
+
 ## Usage Example
 
 ./examples/app.jsx
