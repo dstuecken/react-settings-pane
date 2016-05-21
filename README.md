@@ -89,14 +89,14 @@ render() {
   
   // Return your Settings Pane
   return (
-    <SettingsPane>
-      <SettingsMenu items={menu} settings={settings} />
+    <SettingsPane settings={settings}>
+      <SettingsMenu items={menu} />
       <SettingsContent index="/settings/general">
         <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
         <SettingsPage handler="/settings/profile">
             <div>
                 <label for="profileName">Name</label>
-                <input type="text" name="mysettings.profile.name" id="profileName" value="" />
+                <input type="text" name="mysettings.profile.name" id="profileName" value="{this.props.settings['mysettings.profile.name']}" />
             </div>
         </SettingsPage>
       </SettingsContent>
@@ -105,17 +105,24 @@ render() {
 }
 ```
 
-#### Properites
+## Formal API
+#### &lt;SettingsPane />
 
-*SettingsMenu*
-- @items: The menu items for the left menu
+- `settings: object`: Key/value object with your settings. Pased down to all SettingsPages.
+- `pageCallback: function`: Callback function for each menu-item click. Can be used to push current url state to browser History.
 
-*SettingsContent*
-- @index: The index Page (url-slug of it) 
+#### &lt;SettingsMenu />
 
-*SettingsPage*
-- @handler: URL handler, this has to match with your menu url property.
-- @options: (optional) Options for a programattically generated settings page. See dynamicOptionsForGeneralPage for an example.
+- `items: array`: The menu items for the left menu
+
+#### &lt;SettingsContent />
+
+- `index: string`: The index Page (url-slug of it) 
+
+#### &lt;SettingsPage />
+
+- `handler: string`: URL handler, this has to match with your menu url property.
+- `options: array`: (optional) Options for a programattically generated settings page. See dynamicOptionsForGeneralPage for an example.
 
 ### Custom Styling
 
@@ -138,8 +145,8 @@ It is possible to push the url state to the browser history using react-router o
 // Import browser history from react router
 import { browserHistory } from 'react-router'
 
-// Pass a callback function to the SettingsPane property "historyCallback"
-<SettingsPane historyCallback={(menuItem) => browserHistory.push(menuItem.identifier)} />
+// Pass a callback function to the SettingsPane property "pageCallback"
+<SettingsPane pageCallback={(menuItem) => browserHistory.push(menuItem.identifier)} />
 ```
 
 ## License
