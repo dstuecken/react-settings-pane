@@ -1,0 +1,75 @@
+{
+  "name": "react-settings-pane",
+  "version": "0.1.0",
+  "description": "",
+  "main": "lib/index",
+  "files": [
+    "*.md",
+    "dist",
+    "LICENSE",
+    "src"
+  ],
+  "repository": "dstuecken/react-settings-pane",
+  "authors": [
+    "Dennis Stücken"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/dstuecken/react-settings-pane",
+  "bugs": "https://github.com/dstuecken/react-settings-pane/issues",
+  "scripts": {
+    "build": "npm run build:commonjs & npm run build:umd & npm run build:umd:min",
+    "build:commonjs": "mkdir -p lib && babel ./src -d lib",
+    "build:umd": "webpack dist/ReactSettingsPane.js",
+    "build:umd:min": "NODE_ENV=production webpack dist/ReactSettingsPane.min.js",
+    "lint": "eslint examples src test",
+    "test": "npm run lint && npm run test:node && npm run test:browser",
+    "test:node": "mocha --compilers js:babel-register --recursive ./test/*.spec.js",
+    "test:browser": "karma start",
+    "test:cov": "npm run test:cov:browser && npm run test:cov:node && npm run test:cov:report",
+    "test:cov:node": "babel-node $(npm bin)/isparta cover $(npm bin)/_mocha report --dir ./coverage/node-coverage -- --recursive ./test/node",
+    "test:cov:browser": "COVERAGE=true karma start",
+    "test:cov:report": "$(npm bin)/istanbul report --dir ./coverage --include **/*coverage.json html text"
+  },
+  "tags": [
+    "react",
+    "settings",
+    "configuration"
+  ],
+  "keywords": [
+    "react",
+    "settings",
+    "configuration",
+    "administration",
+    "react-component"
+  ],
+  "dependencies": {
+    "react": "^0.14.0 || ^15.0.2",
+    "react-dom": "^0.14.0 || ^15.0.2",
+  },
+  "devDependencies": {
+    "babel-cli": "^6.1.2",
+    "babel-core": "^6.7.4",
+    "babel-eslint": "^4.1.6",
+    "babel-loader": "^6.2.0",
+    "babel-polyfill": "^6.7.4",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-1": "^6.3.13",
+    "eslint": "^1.10.3",
+    "eslint-config-rackt": "^1.1.1",
+    "eslint-plugin-react": "^3.15.0",
+    "expect": "^1.13.0",
+    "karma": "^0.13.3",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-coverage": "^0.5.3",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-ie-launcher": "^0.2.0",
+    "karma-mocha": "^0.2.0",
+    "karma-mocha-reporter": "^1.0.4",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.3.4",
+    "webpack": "^1.12.9"
+  }
+}
