@@ -44,7 +44,7 @@
   ],
   "dependencies": {
     "react": "^0.14.0 || ^15.0.2",
-    "react-dom": "^0.14.0 || ^15.0.2",
+    "react-dom": "^0.14.0 || ^15.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.1.2",
