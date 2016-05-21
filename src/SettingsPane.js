@@ -37,17 +37,35 @@ export default class SettingsPane extends Component {
     }
   }
 
+  addEvent(node, event, handler) {
+    node.addEventListener(event, handler)
+
+    return {
+
+      remove() {
+        node.removeEventListener(event, handler)
+      }
+    }
+  }
+
   handleKeyUp(ev) {
-    if (this.props.keyboard && ev.keyCode === 27) {
+    if (ev.keyCode === 27) {
       this.props.onPaneLeave(false, this.state.settings, this.state.settings)
       this._keyUpListener.remove()
     }
 
   }
 
+  load() {
+    this._keyUpListener = this.addEvent(document, 'keyup', this.handleKeyUp.bind(this))
+  }
+
+  componentDidMount() {
+    this.load()
+  }
+
   componentDidUpdate() {
-    let doc = ReactDOM.findDOMNode(this)
-    this._keyUpListener = addEventListener(doc, 'keyup', this.handleKeyUp.bind(this))
+    this.load()
   }
 
   /**
@@ -91,7 +109,7 @@ export default class SettingsPane extends Component {
     if (this.form) {
       // Retrieve settings via form serialization
       // todo: Create custom form Components and retrieve form data from these components instead of serializing..
-      let newSettings = Object.assign({}, this.props.settings, serialize(this.form, { hash: true }))
+      let newSettings = Object.assign({}, this.props.settings, serialize(this.form, {hash: true}))
 
       // Update state with new settings
       if (JSON.stringify(newSettings) !== JSON.stringify(this.props.settings)) {

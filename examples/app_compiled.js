@@ -172,13 +172,11 @@
 	        _this2.prefs.className = 'modal';
 	      };
 
-	      var settingsChanged = function settingsChanged(ev) {}
-	      //alert(React.findDOMNode(this.refs).value);
-
+	      var settingsChanged = function settingsChanged(ev) {};
 
 	      // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
 	      // Return your Settings Pane
-	      ;return _react2.default.createElement(
+	      return _react2.default.createElement(
 	        'div',
 	        { className: 'row' },
 	        _react2.default.createElement(
@@ -13579,7 +13577,7 @@
 		     */ /**
 		     * PropTypes
 		     *
-		     * @type {{currentPage: *, items: *, currentPage: *, settings: (string|string|*|Type.object|string), onChange: *, switchContent: *, onPaneLeave: *, onMenuItemClick: *}}
+		     * @type {{currentPage: *, items: *, currentPage: *, settings: object, onChange: *, switchContent: *, onPaneLeave: *, onMenuItemClick: *}}
 		     */},{key:'render',value:function render(){var page=this.props.currentPage?this.props.currentPage:'',header='';if(this.props.header){if(this.props.header===true){var currentItem=this.props.items.reduce(function(prev,item){return item.url===page?item:prev;});header=_react2.default.createElement('div',{className:'headline'},_react2.default.createElement('h3',null,currentItem.title));}else {header=this.props.header;}}return _react2.default.createElement('div',{className:'settings-content'},header,_react2.default.createElement('div',{className:'settings-page'},_react2.default.createElement('div',{className:'scroller-wrap'},this.renderPage(page))),_react2.default.createElement(_SettingsFooter2.default,this.props));}}]);return SettingsContent;}(_react.Component);SettingsContent.propTypes={currentPage:_react.PropTypes.string,header:_react.PropTypes.bool,items:_react.PropTypes.array,settings:_react.PropTypes.object,onChange:_react.PropTypes.func,switchContent:_react.PropTypes.func,onPaneLeave:_react.PropTypes.func,onMenuItemClick:_react.PropTypes.func};exports.default=SettingsContent; /***/}, /* 88 */ /***/function(module,exports,__webpack_require__){"use strict";Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value" in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=__webpack_require__(19);var _react2=_interopRequireDefault(_react);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&((typeof call==='undefined'?'undefined':_typeof(call))==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+(typeof superClass==='undefined'?'undefined':_typeof(superClass)));}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;} /*
 		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @react-settings-pane
 		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */var SettingsPage=function(_Component){_inherits(SettingsPage,_Component);function SettingsPage(){_classCallCheck(this,SettingsPage);return _possibleConstructorReturn(this,Object.getPrototypeOf(SettingsPage).apply(this,arguments));}_createClass(SettingsPage,[{key:"closeClicked", /**
@@ -13646,7 +13644,7 @@
 		   * PropTypes
 		   *
 		   * @type {{children: *, settings: *, index: *, onChange: *, onPaneLeave: *, onMenuItemClick: *}}
-		   */_createClass(SettingsPane,[{key:'handleKeyUp',value:function handleKeyUp(ev){if(this.props.keyboard&&ev.keyCode===27){this.props.onPaneLeave(false,this.state.settings,this.state.settings);this._keyUpListener.remove();}}},{key:'componentDidUpdate',value:function componentDidUpdate(){var doc=_reactDom2.default.findDOMNode(this);this._keyUpListener=addEventListener(doc,'keyup',this.handleKeyUp.bind(this));} /**
+		   */_createClass(SettingsPane,[{key:'addEvent',value:function addEvent(node,event,handler){node.addEventListener(event,handler);return {remove:function remove(){node.removeEventListener(event,handler);}};}},{key:'handleKeyUp',value:function handleKeyUp(ev){if(ev.keyCode===27){this.props.onPaneLeave(false,this.state.settings,this.state.settings);this._keyUpListener.remove();}}},{key:'load',value:function load(){this._keyUpListener=this.addEvent(document,'keyup',this.handleKeyUp.bind(this));}},{key:'componentDidMount',value:function componentDidMount(){this.load();}},{key:'componentDidUpdate',value:function componentDidUpdate(){this.load();} /**
 		     * Switch content to another menuitem
 		     *
 		     * @param menuItem

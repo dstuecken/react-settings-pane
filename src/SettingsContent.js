@@ -1,7 +1,7 @@
 /*
  * @react-settings-pane
  */
-import React, { PropTypes, Component, Children} from 'react'
+import React, { PropTypes, Component, Children } from 'react'
 import SettingsFooter from './SettingsFooter'
 
 export default class SettingsContent extends Component {
@@ -9,7 +9,7 @@ export default class SettingsContent extends Component {
   /**
    * PropTypes
    *
-   * @type {{currentPage: *, items: *, currentPage: *, settings: (string|string|*|Type.object|string), onChange: *, switchContent: *, onPaneLeave: *, onMenuItemClick: *}}
+   * @type {{currentPage: *, items: *, currentPage: *, settings: object, onChange: *, switchContent: *, onPaneLeave: *, onMenuItemClick: *}}
    */
   static propTypes = {
     currentPage: PropTypes.string,
@@ -53,14 +53,12 @@ export default class SettingsContent extends Component {
     // There was no page found, so show a page not defined message
     if (page.length === 0) {
       page = [
-        (
-          <div key="settingsEmptyMessage" className="empty-message">
-            <p>
-              Page not defined
-            </p>
-          </div>
-        )
-      ];
+        (<div key="settingsEmptyMessage" className="empty-message">
+          <p>
+            Page not defined
+          </p>
+        </div>)
+      ]
     }
 
     return page
@@ -73,16 +71,15 @@ export default class SettingsContent extends Component {
    */
   render() {
 
-    let page = this.props.currentPage ? this.props.currentPage : '', header = '';
+    let page = this.props.currentPage ? this.props.currentPage : '', header = ''
 
     if (this.props.header) {
-
       if (this.props.header === true) {
         let currentItem = this.props.items.reduce((prev, item) => item.url === page ? item : prev)
         header = <div className="headline"><h3>{currentItem.title}</h3></div>
       }
       else {
-        header = this.props.header;
+        header = this.props.header
       }
 
     }

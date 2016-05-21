@@ -106,7 +106,7 @@ class App extends React.Component {
      };
     
     let settingsChanged = (ev) => {
-      //alert(React.findDOMNode(this.refs).value);
+
     }
 
      // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />

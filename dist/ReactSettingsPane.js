@@ -10458,7 +10458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /**
 	     * PropTypes
 	     *
-	     * @type {{currentPage: *, items: *, currentPage: *, settings: (string|string|*|Type.object|string), onChange: *, switchContent: *, onPaneLeave: *, onMenuItemClick: *}}
+	     * @type {{currentPage: *, items: *, currentPage: *, settings: object, onChange: *, switchContent: *, onPaneLeave: *, onMenuItemClick: *}}
 	     */
 
 	  }, {
@@ -10469,7 +10469,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          header = '';
 
 	      if (this.props.header) {
-
 	        if (this.props.header === true) {
 	          var currentItem = this.props.items.reduce(function (prev, item) {
 	            return item.url === page ? item : prev;
@@ -10953,18 +10952,38 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	  _createClass(SettingsPane, [{
+	    key: 'addEvent',
+	    value: function addEvent(node, event, handler) {
+	      node.addEventListener(event, handler);
+
+	      return {
+	        remove: function remove() {
+	          node.removeEventListener(event, handler);
+	        }
+	      };
+	    }
+	  }, {
 	    key: 'handleKeyUp',
 	    value: function handleKeyUp(ev) {
-	      if (this.props.keyboard && ev.keyCode === 27) {
+	      if (ev.keyCode === 27) {
 	        this.props.onPaneLeave(false, this.state.settings, this.state.settings);
 	        this._keyUpListener.remove();
 	      }
 	    }
 	  }, {
+	    key: 'load',
+	    value: function load() {
+	      this._keyUpListener = this.addEvent(document, 'keyup', this.handleKeyUp.bind(this));
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.load();
+	    }
+	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
-	      var doc = _reactDom2.default.findDOMNode(this);
-	      this._keyUpListener = addEventListener(doc, 'keyup', this.handleKeyUp.bind(this));
+	      this.load();
 	    }
 
 	    /**
