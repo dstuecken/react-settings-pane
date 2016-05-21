@@ -94,6 +94,7 @@ class App extends React.Component {
      // Save settings after close
      let leavePaneHandler = (wasSaved, newSettings, oldSettings) => {
        // "wasSaved" indicates wheather the pane was just closed or the save button was clicked.
+      console.log('onPaneLeave')
 
        if (wasSaved && newSettings !== oldSettings) {
          // do something with the settings, e.g. save via ajax.
