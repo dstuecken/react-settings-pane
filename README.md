@@ -87,9 +87,18 @@ render() {
     }
   ];
   
+  // Save settings after close
+  let leavePaneHandler = (wasSaved, newSettings, oldSettings) => {
+    // "wasSaved" indicates wheather the pane was just closed or the save button was clicked.
+  
+    if (wasSaved && newSettings !== oldSettings) {
+      // do something with the settings, e.g. save via ajax.
+    }
+  };
+  
   // Return your Settings Pane
   return (
-    <SettingsPane settings={settings}>
+    <SettingsPane settings={settings} onPaneLeave={leavePaneHandler}>
       <SettingsMenu items={menu} />
       <SettingsContent index="/settings/general">
         <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
@@ -109,7 +118,8 @@ render() {
 #### &lt;SettingsPane />
 
 - `settings: object`: Key/value object with your settings. Pased down to all SettingsPages.
-- `pageCallback: function`: Callback function for each menu-item click. Can be used to push current url state to browser History.
+- `onPaneLeave: function`: Callback function that is emitted after closing the pane
+- `onMenuItemClick: function`: (optional) Callback function for each menu-item click. Could be used to push current url state to browser History.
 
 #### &lt;SettingsMenu />
 
@@ -145,8 +155,8 @@ It is possible to push the url state to the browser history using react-router o
 // Import browser history from react router
 import { browserHistory } from 'react-router'
 
-// Pass a callback function to the SettingsPane property "pageCallback"
-<SettingsPane pageCallback={(menuItem) => browserHistory.push(menuItem.identifier)} />
+// Pass a callback function to the SettingsPane property "onMenuItemClick"
+<SettingsPane onMenuItemClick={(menuItem) => browserHistory.push(menuItem.identifier)} />
 ```
 
 ## License
