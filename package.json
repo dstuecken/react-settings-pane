@@ -17,10 +17,11 @@
   "homepage": "https://github.com/dstuecken/react-settings-pane",
   "bugs": "https://github.com/dstuecken/react-settings-pane/issues",
   "scripts": {
-    "build": "npm run build:commonjs & npm run build:umd & npm run build:umd:min",
+    "build": "npm run build:commonjs & npm run build:umd & npm run build:umd:min & npm run build:example",
     "build:commonjs": "mkdir -p lib && babel ./src -d lib",
     "build:umd": "webpack dist/ReactSettingsPane.js",
     "build:umd:min": "NODE_ENV=production webpack dist/ReactSettingsPane.min.js",
+    "build:example": "cd examples && webpack app_compiled.js",
     "lint": "eslint examples src test",
     "test": "npm run lint && npm run test:node && npm run test:browser",
     "test:node": "mocha --compilers js:babel-register --recursive ./test/*.spec.js",
@@ -60,6 +61,7 @@
     "eslint-config-rackt": "^1.1.1",
     "eslint-plugin-react": "^3.15.0",
     "expect": "^1.13.0",
+    "gulp": "^3.9.1",
     "karma": "^0.13.3",
     "karma-chrome-launcher": "^0.2.0",
     "karma-coverage": "^0.5.3",
@@ -71,6 +73,7 @@
     "karma-sourcemap-loader": "^0.3.5",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.4",
-    "webpack": "^1.12.9"
+    "webpack": "^1.12.9",
+    "webpack-stream": "^3.2.0"
   }
 }
