@@ -34,7 +34,7 @@ export default class SettingsContent extends Component {
     if (url) {
 
       // Search for a matching url handler
-      page.push(Children.map(this.props.children, (child) => {
+      page = Children.map(this.props.children, (child) => {
 
         if (child.props.handler && child.props.handler === url) {
 
@@ -47,7 +47,7 @@ export default class SettingsContent extends Component {
           })
 
         }
-      }))
+      })
     }
 
     // There was no page found, so show a page not defined message

@@ -161,7 +161,6 @@
 	      // Save settings after close
 	      var leavePaneHandler = function leavePaneHandler(wasSaved, newSettings, oldSettings) {
 	        // "wasSaved" indicates wheather the pane was just closed or the save button was clicked.
-	        console.log('onPaneLeave');
 
 	        if (wasSaved && newSettings !== oldSettings) {
 	          // do something with the settings, e.g. save via ajax.
@@ -173,15 +172,13 @@
 	        _this2.prefs.className = 'modal';
 	      };
 
-	      var settingsChanged = function settingsChanged(ev) {
-	        //alert(React.findDOMNode(this.refs).value);
-	      };
+	      var settingsChanged = function settingsChanged(ev) {}
+	      //alert(React.findDOMNode(this.refs).value);
 
-	      console.log('rerendering App');
 
 	      // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
 	      // Return your Settings Pane
-	      return _react2.default.createElement(
+	      ;return _react2.default.createElement(
 	        'div',
 	        { className: 'row' },
 	        _react2.default.createElement(
@@ -13574,7 +13571,7 @@
 		     * @param url
 		     * @returns array
 		     */value:function renderPage(url){var _this2=this;var page=[];if(url){ // Search for a matching url handler
-	page=_react.Children.map(this.props.children,function(child){if(child.props.handler&&child.props.handler===url){return _react2.default.cloneElement(child,{settings:_this2.props.settings,onChange:_this2.props.onChange,onPaneLeave:_this2.props.onPaneLeave,onMenuItemClick:_this2.props.onMenuItemClick,currentPage:_this2.props.currentPage});}});}console.log(page); // There was no page found, so show a page not defined message
+	page=_react.Children.map(this.props.children,function(child){if(child.props.handler&&child.props.handler===url){return _react2.default.cloneElement(child,{settings:_this2.props.settings,onChange:_this2.props.onChange,onPaneLeave:_this2.props.onPaneLeave,onMenuItemClick:_this2.props.onMenuItemClick,currentPage:_this2.props.currentPage});}});} // There was no page found, so show a page not defined message
 	if(page.length===0){page=[_react2.default.createElement('div',{key:'settingsEmptyMessage',className:'empty-message'},_react2.default.createElement('p',null,'Page not defined'))];}return page;} /**
 		     * Main renderer
 		     *
@@ -13588,16 +13585,14 @@
 		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */var SettingsPage=function(_Component){_inherits(SettingsPage,_Component);function SettingsPage(){_classCallCheck(this,SettingsPage);return _possibleConstructorReturn(this,Object.getPrototypeOf(SettingsPage).apply(this,arguments));}_createClass(SettingsPage,[{key:"closeClicked", /**
 		     * Close was clicked
 		     */value:function closeClicked(ev){ev.preventDefault();this.props.onPaneLeave(false,this.props.settings,this.props.settings);} /**
-		     * Save was clicked
+		     * Render this component
+		     *
+		     * @returns {XML}
 		     */ /**
 		     * PropTypes
 		     *
 		     * @type {{settings: *, onPaneLeave: *}}
-		     */},{key:"saveClicked",value:function saveClicked(ev){ev.preventDefault();this.props.onPaneLeave(true,this.props.settings,this.props.settings);} /**
-		     * Render this component
-		     *
-		     * @returns {XML}
-		     */},{key:"render",value:function render(){return _react2.default.createElement("div",{className:"settings-footer"},_react2.default.createElement("div",{className:"settings-close"},_react2.default.createElement("button",{className:"btn btn-default",onClick:this.closeClicked.bind(this)},"Close")),_react2.default.createElement("button",{className:"btn btn-primary",onClick:this.saveClicked.bind(this)},"Save"));}}]);return SettingsPage;}(_react.Component);SettingsPage.propTypes={settings:_react.PropTypes.object.isRequired,onPaneLeave:_react.PropTypes.func.isRequired};exports.default=SettingsPage; /***/}, /* 89 */ /***/function(module,exports,__webpack_require__){'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value" in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=__webpack_require__(19);var _react2=_interopRequireDefault(_react);var _MenuItem=__webpack_require__(86);var _MenuItem2=_interopRequireDefault(_MenuItem);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&((typeof call==='undefined'?'undefined':_typeof(call))==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+(typeof superClass==='undefined'?'undefined':_typeof(superClass)));}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;} /*
+		     */},{key:"render",value:function render(){return _react2.default.createElement("div",{className:"settings-footer"},_react2.default.createElement("div",{className:"settings-close"},_react2.default.createElement("button",{className:"btn btn-default",onClick:this.closeClicked.bind(this)},"Close")),_react2.default.createElement("button",{className:"btn btn-primary"},"Save"));}}]);return SettingsPage;}(_react.Component);SettingsPage.propTypes={settings:_react.PropTypes.object.isRequired,onPaneLeave:_react.PropTypes.func.isRequired};exports.default=SettingsPage; /***/}, /* 89 */ /***/function(module,exports,__webpack_require__){'use strict';Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value" in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=__webpack_require__(19);var _react2=_interopRequireDefault(_react);var _MenuItem=__webpack_require__(86);var _MenuItem2=_interopRequireDefault(_MenuItem);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&((typeof call==='undefined'?'undefined':_typeof(call))==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+(typeof superClass==='undefined'?'undefined':_typeof(superClass)));}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;} /*
 		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @react-settings-pane
 		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */var SettingsMenu=function(_Component){_inherits(SettingsMenu,_Component);function SettingsMenu(){_classCallCheck(this,SettingsMenu);return _possibleConstructorReturn(this,Object.getPrototypeOf(SettingsMenu).apply(this,arguments));}_createClass(SettingsMenu,[{key:'menuItems', /**
 		     * Itearate through all items and return an array of MenuItems

@@ -18,14 +18,9 @@ export default class SettingsPage extends Component {
   /**
    * Close was clicked
    */
-  closeClicked() {
-    this.props.onPaneLeave(false, this.props.settings, this.props.settings);
-  }
+  closeClicked(ev) {
+    ev.preventDefault()
 
-  /**
-   * Save was clicked
-   */
-  saveClicked() {
     this.props.onPaneLeave(false, this.props.settings, this.props.settings);
   }
 
@@ -40,7 +35,7 @@ export default class SettingsPage extends Component {
         <div className="settings-close">
           <button className="btn btn-default" onClick={this.closeClicked.bind(this)}>Close</button>
         </div>
-        <button className="btn btn-primary" onClick={this.saveClicked.bind(this)}>Save</button>
+        <button className="btn btn-primary">Save</button>
       </div>
     )
   }

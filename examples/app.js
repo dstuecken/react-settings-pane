@@ -94,7 +94,6 @@ class App extends React.Component {
      // Save settings after close
      let leavePaneHandler = (wasSaved, newSettings, oldSettings) => {
        // "wasSaved" indicates wheather the pane was just closed or the save button was clicked.
-      console.log('onPaneLeave')
 
        if (wasSaved && newSettings !== oldSettings) {
          // do something with the settings, e.g. save via ajax.
@@ -109,8 +108,6 @@ class App extends React.Component {
     let settingsChanged = (ev) => {
       //alert(React.findDOMNode(this.refs).value);
     }
-
-    console.log('rerendering App')
 
      // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
      // Return your Settings Pane

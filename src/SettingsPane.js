@@ -2,6 +2,7 @@
  * @react-settings-pane
  */
 import React, { PropTypes, Component, Children } from 'react'
+import ReactDOM from 'react-dom'
 import serialize from 'form-serialize'
 
 export default class SettingsPane extends Component {
@@ -34,6 +35,19 @@ export default class SettingsPane extends Component {
       items: props.items,
       settings: props.settings
     }
+  }
+
+  handleKeyUp(ev) {
+    if (this.props.keyboard && ev.keyCode === 27) {
+      this.props.onPaneLeave(false, this.state.settings, this.state.settings)
+      this._keyUpListener.remove()
+    }
+
+  }
+
+  componentDidUpdate() {
+    let doc = ReactDOM.findDOMNode(this)
+    this._keyUpListener = addEventListener(doc, 'keyup', this.handleKeyUp.bind(this))
   }
 
   /**
@@ -72,12 +86,12 @@ export default class SettingsPane extends Component {
    * @param ev
    */
   handleSubmit(ev) {
-    ev.preventDefault();
+    ev.preventDefault()
 
     if (this.form) {
       // Retrieve settings via form serialization
       // todo: Create custom form Components and retrieve form data from these components instead of serializing..
-      let newSettings = Object.assign({}, this.props.settings, serialize(this.form, {hash: true}))
+      let newSettings = Object.assign({}, this.props.settings, serialize(this.form, { hash: true }))
 
       // Update state with new settings
       if (JSON.stringify(newSettings) !== JSON.stringify(this.props.settings)) {
