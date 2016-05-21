@@ -2,7 +2,6 @@ var webpack = require('webpack')
 
 var config = {
   entry: './app',
-  watch: true,
   module: {
     loaders: [
       { loaders: [ 'babel' ] }

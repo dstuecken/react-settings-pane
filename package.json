@@ -21,7 +21,7 @@
     "build:commonjs": "mkdir -p lib && babel ./src -d lib",
     "build:umd": "webpack dist/ReactSettingsPane.js",
     "build:umd:min": "NODE_ENV=production webpack dist/ReactSettingsPane.min.js",
-    "build:example": "cd examples && webpack app_compiled.js",
+    "build:example": "cd examples && webpack",
     "lint": "eslint examples src test",
     "test": "npm run lint && npm run test:node && npm run test:browser",
     "test:node": "mocha --compilers js:babel-register --recursive ./test/*.spec.js",
@@ -45,6 +45,7 @@
     "react-component"
   ],
   "dependencies": {
+    "form-serialize": "^0.7.1",
     "react": "^0.14.0 || ^15.0.2",
     "react-dom": "^0.14.0 || ^15.0.2"
   },

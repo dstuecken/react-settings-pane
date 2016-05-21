@@ -61,15 +61,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.SettingsContent = exports.SettingsPage = exports.SettingsMenu = exports.SettingsPane = undefined;
 
-	var _SettingsPane2 = __webpack_require__(23);
+	var _SettingsPane2 = __webpack_require__(24);
 
 	var _SettingsPane3 = _interopRequireDefault(_SettingsPane2);
 
-	var _SettingsMenu2 = __webpack_require__(21);
+	var _SettingsMenu2 = __webpack_require__(22);
 
 	var _SettingsMenu3 = _interopRequireDefault(_SettingsMenu2);
 
-	var _SettingsPage2 = __webpack_require__(22);
+	var _SettingsPage2 = __webpack_require__(23);
 
 	var _SettingsPage3 = _interopRequireDefault(_SettingsPage2);
 
@@ -626,7 +626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	module.exports = __webpack_require__(26);
+	module.exports = __webpack_require__(28);
 
 
 /***/ },
@@ -919,7 +919,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var ReactNoopUpdateQueue = __webpack_require__(14);
-	var ReactInstrumentation = __webpack_require__(32);
+	var ReactInstrumentation = __webpack_require__(34);
 
 	var canDefineProperty = __webpack_require__(8);
 	var emptyObject = __webpack_require__(17);
@@ -1599,6 +1599,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  _createClass(MenuItem, [{
 	    key: 'clicked',
+
+
+	    /**
+	     * MenuItem was clicked
+	     *
+	     * @param ev
+	     */
 	    value: function clicked(ev) {
 	      ev.preventDefault();
 
@@ -1611,22 +1618,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.props.onMenuItemClick(this.props.item);
 	      }
 
-	      this.props.switchContent(this.props.item.url);
+	      this.props.switchContent(this.props.item);
 	    }
+
+	    /**
+	     * Render this component
+	     *
+	     * @returns {XML}
+	     */
+
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _props$item = this.props.item;
 	      var title = _props$item.title;
-	      var url = _props$item.url;
-
+	      var url = _props$item.url;var itemsClassName = this.props.active ? 'menu-item active' : 'menu-item';
 
 	      return _react2.default.createElement(
 	        'li',
-	        { title: title },
+	        { title: title, className: itemsClassName },
 	        _react2.default.createElement(
 	          'a',
-	          { href: url, onClick: this.clicked },
+	          { href: url, onClick: this.clicked.bind(this) },
 	          title
 	        )
 	      );
@@ -1659,6 +1672,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _SettingsFooter = __webpack_require__(21);
+
+	var _SettingsFooter2 = _interopRequireDefault(_SettingsFooter);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1681,34 +1698,107 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  _createClass(SettingsContent, [{
 	    key: 'renderPage',
+
+
+	    /**
+	     * Renders a page that is defined as a handler for 'url'.
+	     *
+	     * @param url
+	     * @returns array
+	     */
 	    value: function renderPage(url) {
 	      var _this2 = this;
 
+	      var page = [];
+
 	      if (url) {
-	        return _react.Children.map(this.props.children, function (child) {
+
+	        // Search for a matching url handler
+	        page.push(_react.Children.map(this.props.children, function (child) {
 
 	          if (child.props.handler && child.props.handler === url) {
 
 	            return _react2.default.cloneElement(child, {
 	              settings: _this2.props.settings,
+	              onChange: _this2.props.onChange,
 	              onPaneLeave: _this2.props.onPaneLeave,
 	              onMenuItemClick: _this2.props.onMenuItemClick,
 	              currentPage: _this2.props.currentPage
 	            });
 	          }
-	        });
+	        }));
 	      }
+
+	      // There was no page found, so show a page not defined message
+	      if (page.length === 0) {
+	        page = [_react2.default.createElement(
+	          'div',
+	          { key: 'settingsEmptyMessage', className: 'empty-message' },
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'Page not defined'
+	          )
+	        )];
+	      }
+
+	      return page;
 	    }
+
+	    /**
+	     * Main renderer
+	     *
+	     * @returns {XML}
+	     */
+
+
+	    /**
+	     * PropTypes
+	     *
+	     * @type {{currentPage: *, items: *, currentPage: *, settings: (string|string|*|Type.object|string), onChange: *, switchContent: *, onPaneLeave: *, onMenuItemClick: *}}
+	     */
+
 	  }, {
 	    key: 'render',
 	    value: function render() {
 
-	      var page = this.props.currentPage ? this.props.currentPage : '';
+	      var page = this.props.currentPage ? this.props.currentPage : '',
+	          header = '';
+
+	      if (this.props.header) {
+
+	        if (this.props.header === true) {
+	          var currentItem = this.props.items.reduce(function (prev, item) {
+	            return item.url === page ? item : prev;
+	          });
+	          header = _react2.default.createElement(
+	            'div',
+	            { className: 'headline' },
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              currentItem.title
+	            )
+	          );
+	        } else {
+	          header = this.props.header;
+	        }
+	      }
 
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'settings-content' },
-	        this.renderPage(page)
+	        header,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'settings-page' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'scroller-wrap' },
+	            this.renderPage(page)
+	          )
+	        ),
+	        _react2.default.createElement(_SettingsFooter2.default, this.props)
 	      );
 	    }
 	  }]);
@@ -1717,12 +1807,122 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_react.Component);
 
 	SettingsContent.propTypes = {
-	  currentPage: _react.PropTypes.string
+	  currentPage: _react.PropTypes.string,
+	  header: _react.PropTypes.bool,
+	  items: _react.PropTypes.array,
+	  settings: _react.PropTypes.object,
+	  onChange: _react.PropTypes.func,
+	  switchContent: _react.PropTypes.func,
+	  onPaneLeave: _react.PropTypes.func,
+	  onMenuItemClick: _react.PropTypes.func
 	};
 	exports.default = SettingsContent;
 
 /***/ },
 /* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(5);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @react-settings-pane
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	var SettingsPage = function (_Component) {
+	  _inherits(SettingsPage, _Component);
+
+	  function SettingsPage() {
+	    _classCallCheck(this, SettingsPage);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SettingsPage).apply(this, arguments));
+	  }
+
+	  _createClass(SettingsPage, [{
+	    key: "closeClicked",
+
+
+	    /**
+	     * Close was clicked
+	     */
+	    value: function closeClicked() {
+	      this.props.onPaneLeave(false, this.props.settings, this.props.settings);
+	    }
+
+	    /**
+	     * Save was clicked
+	     */
+
+
+	    /**
+	     * PropTypes
+	     *
+	     * @type {{settings: *, onPaneLeave: *}}
+	     */
+
+	  }, {
+	    key: "saveClicked",
+	    value: function saveClicked() {
+	      this.props.onPaneLeave(false, this.props.settings, this.props.settings);
+	    }
+
+	    /**
+	     * Render this component
+	     *
+	     * @returns {XML}
+	     */
+
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "settings-footer" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "settings-close" },
+	          _react2.default.createElement(
+	            "button",
+	            { className: "btn btn-default", onClick: this.closeClicked.bind(this) },
+	            "Close"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "button",
+	          { className: "btn btn-primary", onClick: this.saveClicked.bind(this) },
+	          "Save"
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SettingsPage;
+	}(_react.Component);
+
+	SettingsPage.propTypes = {
+	  settings: _react.PropTypes.object.isRequired,
+	  onPaneLeave: _react.PropTypes.func.isRequired
+	};
+	exports.default = SettingsPage;
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1763,6 +1963,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  _createClass(SettingsMenu, [{
 	    key: 'menuItems',
+
+
+	    /**
+	     * Itearate through all items and return an array of MenuItems
+	     *
+	     * @returns array
+	     */
 	    value: function menuItems() {
 	      var _this2 = this;
 
@@ -1770,8 +1977,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return this.props.items.map(function (item, i) {
 
+	        // Define all props for this MenuItem
 	        props = {
 	          item: item,
+	          active: _this2.props.currentPage === item.url,
 	          onMenuItemClick: _this2.props.onMenuItemClick,
 	          switchContent: _this2.props.switchContent,
 	          key: i
@@ -1780,13 +1989,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return _react2.default.createElement(_MenuItem2.default, props);
 	      });
 	    }
+
+	    /**
+	     * Render this component
+	     *
+	     * @returns {XML}
+	     */
+
+
+	    /**
+	     * PropTypes
+	     *
+	     * @type {{items: *, headline: *, currentPage: *, switchContent: *, onMenuItemClick: *}}
+	     */
+
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'ul',
-	        { className: 'settings-menu' },
-	        this.menuItems()
+	        'div',
+	        { className: 'settings-left' },
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'settings-menu' },
+	          this.props.headline ? _react2.default.createElement(
+	            'li',
+	            { className: 'headline' },
+	            this.props.headline
+	          ) : '',
+	          this.menuItems()
+	        )
 	      );
 	    }
 	  }]);
@@ -1795,14 +2027,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	}(_react.Component);
 
 	SettingsMenu.propTypes = {
-	  items: _react.PropTypes.array.isRequired,
+	  headline: _react.PropTypes.string.isRequired,
+	  items: _react.PropTypes.array,
+	  currentPage: _react.PropTypes.string,
 	  switchContent: _react.PropTypes.func,
 	  onMenuItemClick: _react.PropTypes.func
 	};
 	exports.default = SettingsMenu;
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1839,33 +2073,107 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  _createClass(SettingsPage, [{
 	    key: "renderWithOptions",
+
+
+	    /**
+	     * Render page with dynamic options object
+	     *
+	     * @param options
+	     * @returns {XML}
+	     */
 	    value: function renderWithOptions(options) {
+	      // todo: set onChange={this.props.onChange} to all form elements.
+
 	      return _react2.default.createElement(
 	        "div",
 	        null,
 	        "Render With Options (not implemented, yet)"
 	      );
 	    }
+
+	    /**
+	     * Render with content (Childs of <SettingsPage />)
+	     *
+	     * @param content
+	     * @returns {*}
+	     */
+
+
+	    /**
+	     * PropTypes
+	     *
+	     * @type {{handler: *, options: (string|string|*|Type.object|string), settings: (string|string|*|Type.object|string), onChange: *, switchContent: *, onPaneLeave: *, onMenuItemClick: *}}
+	     */
+
 	  }, {
 	    key: "renderWithContent",
 	    value: function renderWithContent(content) {
 	      return content;
 	    }
+
+	    /**
+	     * Update form in a very dirty way..
+	     *
+	     * @todo find a better way or disable custom forms via children
+	     */
+
+	  }, {
+	    key: "updateForm",
+	    value: function updateForm() {
+	      if (this.props.children) {
+	        var settings = this.props.settings,
+	            key = void 0,
+	            elements = void 0;
+	        for (key in settings) {
+	          if (settings.hasOwnProperty(key)) {
+	            elements = document.getElementsByName(key);
+	            if (elements.length > 0 && elements[0]) {
+	              elements[0].value = settings[key];
+	            }
+	          }
+	        }
+	      }
+	    }
+	  }, {
+	    key: "componentDidMount",
+	    value: function componentDidMount() {
+	      this.updateForm();
+	    }
+	  }, {
+	    key: "componentDidUpdate",
+	    value: function componentDidUpdate() {
+	      this.updateForm();
+	    }
+
+	    /**
+	     * Return content for this page
+	     *
+	     * @returns {*}
+	     */
+
 	  }, {
 	    key: "content",
 	    value: function content() {
 	      if (this.props.options) {
 	        return this.renderWithOptions(this.props.options);
-	      } else {
+	      } else if (this.props.children) {
 	        return this.renderWithContent(this.props.children);
 	      }
 	    }
+
+	    /**
+	     * Render this component
+	     *
+	     * @returns {XML}
+	     */
+
 	  }, {
 	    key: "render",
 	    value: function render() {
+
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "settings-content" },
+	        { className: "scroller settings-innerpage" },
 	        this.content()
 	      );
 	    }
@@ -1876,15 +2184,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	SettingsPage.propTypes = {
 	  handler: _react.PropTypes.string.isRequired,
-	  options: _react.PropTypes.array
+	  options: _react.PropTypes.object,
+	  settings: _react.PropTypes.object,
+	  onChange: _react.PropTypes.func,
+	  switchContent: _react.PropTypes.func,
+	  onPaneLeave: _react.PropTypes.func,
+	  onMenuItemClick: _react.PropTypes.func
 	};
 	exports.default = SettingsPage;
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -1895,6 +2208,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _react = __webpack_require__(5);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _formSerialize = __webpack_require__(25);
+
+	var _formSerialize2 = _interopRequireDefault(_formSerialize);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1910,6 +2227,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var SettingsPane = function (_Component) {
 	  _inherits(SettingsPane, _Component);
 
+	  /**
+	   * Construct.
+	   *
+	   * @param props
+	   */
+
 	  function SettingsPane(props) {
 	    _classCallCheck(this, SettingsPane);
 
@@ -1917,39 +2240,130 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    _this.state = {
 	      currentPage: props.index,
+	      items: props.items,
 	      settings: props.settings
 	    };
 	    return _this;
 	  }
 
+	  /**
+	   * Switch content to another menuitem
+	   *
+	   * @param menuItem
+	   */
+
+
+	  /**
+	   * PropTypes
+	   *
+	   * @type {{children: *, settings: *, index: *, onChange: *, onPaneLeave: *, onMenuItemClick: *}}
+	   */
+
+
 	  _createClass(SettingsPane, [{
-	    key: "switchContent",
+	    key: 'switchContent',
 	    value: function switchContent(menuItem) {
+	      // Check if currentPage is different than the new urls
 	      if (this.state.currentPage !== menuItem.url) {
-	        this.state = Object.assign({}, this.state, {
+
+	        // Switch to menuItem's url and reload the components
+	        this.setState(Object.assign({}, this.state, {
 	          currentPage: menuItem.url
-	        });
+	        }));
 	      }
 	    }
+
+	    /**
+	     * Settings changed
+	     *
+	     * @param ev
+	     */
+
 	  }, {
-	    key: "render",
+	    key: 'settingsChanged',
+	    value: function settingsChanged(ev) {
+
+	      // Propagate onChange event
+	      if (this.props.onChange) {
+	        this.props.onChange(ev);
+	      }
+	    }
+
+	    /**
+	     * Handle Formsubmit
+	     *
+	     * @param ev
+	     */
+
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(ev) {
+	      ev.preventDefault();
+
+	      if (this.form) {
+	        // Retrieve settings via form serialization
+	        // todo: Create custom form Components and retrieve form data from these components instead of serializing..
+	        var newSettings = Object.assign({}, this.props.settings, (0, _formSerialize2.default)(this.form, { hash: true }));
+
+	        // Update state with new settings
+	        if (JSON.stringify(newSettings) !== JSON.stringify(this.props.settings)) {
+	          this.setState(Object.assign(this.state, {
+	            settings: newSettings
+	          }));
+
+	          // Propagate onPaneLeave
+	          this.props.onPaneLeave(true, newSettings, this.props.settings);
+	        } else {
+	          // Propagate onPaneLeave
+	          this.props.onPaneLeave(true, this.props.settings, this.props.settings);
+	        }
+	      } else {
+	        //console.error('Unknown error: Form reference to this.form invalid.')
+	      }
+	    }
+
+	    /**
+	     * Render this component
+	     *
+	     * @returns {XML}
+	     */
+
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
+	      var _state = this.state;
+	      var items = _state.items;
+	      var settings = _state.settings;
+	      var currentPage = _state.currentPage;
+
+	      // Pass some props to all SettingsPane Children (usualy there are two childs: SettingsMenu and SettingsContent)
+
 	      var childrenWithProps = _react.Children.map(this.props.children, function (child) {
 	        return _react2.default.cloneElement(child, {
-	          settings: _this2.props.settings,
+	          items: items,
+	          settings: settings,
+	          currentPage: currentPage,
+
 	          onPaneLeave: _this2.props.onPaneLeave,
 	          onMenuItemClick: _this2.props.onMenuItemClick,
-	          currentPage: _this2.state.currentPage,
-	          switchContent: _this2.switchContent
+	          switchContent: _this2.switchContent.bind(_this2),
+	          onChange: _this2.settingsChanged
 	        });
 	      });
 
+	      // Return JSX
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "settings-pane" },
-	        childrenWithProps
+	        'div',
+	        { className: 'settings-pane' },
+	        _react2.default.createElement(
+	          'form',
+	          { ref: function ref(_ref) {
+	              return _this2.form = _ref;
+	            }, className: 'settings', onSubmit: this.handleSubmit.bind(this) },
+	          childrenWithProps
+	        )
 	      );
 	    }
 	  }]);
@@ -1960,13 +2374,282 @@ return /******/ (function(modules) { // webpackBootstrap
 	SettingsPane.propTypes = {
 	  children: _react.PropTypes.node.isRequired,
 	  settings: _react.PropTypes.object.isRequired,
+	  items: _react.PropTypes.array.isRequired,
+	  index: _react.PropTypes.string.isRequired,
+	  onChange: _react.PropTypes.func,
 	  onPaneLeave: _react.PropTypes.func,
 	  onMenuItemClick: _react.PropTypes.func
 	};
 	exports.default = SettingsPane;
 
 /***/ },
-/* 24 */
+/* 25 */
+/***/ function(module, exports) {
+
+	// get successful control from form and assemble into object
+	// http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2
+
+	// types which indicate a submit action and are not successful controls
+	// these will be ignored
+	var k_r_submitter = /^(?:submit|button|image|reset|file)$/i;
+
+	// node names which could be successful controls
+	var k_r_success_contrls = /^(?:input|select|textarea|keygen)/i;
+
+	// Matches bracket notation.
+	var brackets = /(\[[^\[\]]*\])/g;
+
+	// serializes form fields
+	// @param form MUST be an HTMLForm element
+	// @param options is an optional argument to configure the serialization. Default output
+	// with no options specified is a url encoded string
+	//    - hash: [true | false] Configure the output type. If true, the output will
+	//    be a js object.
+	//    - serializer: [function] Optional serializer function to override the default one.
+	//    The function takes 3 arguments (result, key, value) and should return new result
+	//    hash and url encoded str serializers are provided with this module
+	//    - disabled: [true | false]. If true serialize disabled fields.
+	//    - empty: [true | false]. If true serialize empty fields
+	function serialize(form, options) {
+	    if (typeof options != 'object') {
+	        options = { hash: !!options };
+	    }
+	    else if (options.hash === undefined) {
+	        options.hash = true;
+	    }
+
+	    var result = (options.hash) ? {} : '';
+	    var serializer = options.serializer || ((options.hash) ? hash_serializer : str_serialize);
+
+	    var elements = form && form.elements ? form.elements : [];
+
+	    //Object store each radio and set if it's empty or not
+	    var radio_store = Object.create(null);
+
+	    for (var i=0 ; i<elements.length ; ++i) {
+	        var element = elements[i];
+
+	        // ingore disabled fields
+	        if ((!options.disabled && element.disabled) || !element.name) {
+	            continue;
+	        }
+	        // ignore anyhting that is not considered a success field
+	        if (!k_r_success_contrls.test(element.nodeName) ||
+	            k_r_submitter.test(element.type)) {
+	            continue;
+	        }
+
+	        var key = element.name;
+	        var val = element.value;
+
+	        // we can't just use element.value for checkboxes cause some browsers lie to us
+	        // they say "on" for value when the box isn't checked
+	        if ((element.type === 'checkbox' || element.type === 'radio') && !element.checked) {
+	            val = undefined;
+	        }
+
+	        // If we want empty elements
+	        if (options.empty) {
+	            // for checkbox
+	            if (element.type === 'checkbox' && !element.checked) {
+	                val = '';
+	            }
+
+	            // for radio
+	            if (element.type === 'radio') {
+	                if (!radio_store[element.name] && !element.checked) {
+	                    radio_store[element.name] = false;
+	                }
+	                else if (element.checked) {
+	                    radio_store[element.name] = true;
+	                }
+	            }
+
+	            // if options empty is true, continue only if its radio
+	            if (!val && element.type == 'radio') {
+	                continue;
+	            }
+	        }
+	        else {
+	            // value-less fields are ignored unless options.empty is true
+	            if (!val) {
+	                continue;
+	            }
+	        }
+
+	        // multi select boxes
+	        if (element.type === 'select-multiple') {
+	            val = [];
+
+	            var selectOptions = element.options;
+	            var isSelectedOptions = false;
+	            for (var j=0 ; j<selectOptions.length ; ++j) {
+	                var option = selectOptions[j];
+	                var allowedEmpty = options.empty && !option.value;
+	                var hasValue = (option.value || allowedEmpty);
+	                if (option.selected && hasValue) {
+	                    isSelectedOptions = true;
+
+	                    // If using a hash serializer be sure to add the
+	                    // correct notation for an array in the multi-select
+	                    // context. Here the name attribute on the select element
+	                    // might be missing the trailing bracket pair. Both names
+	                    // "foo" and "foo[]" should be arrays.
+	                    if (options.hash && key.slice(key.length - 2) !== '[]') {
+	                        result = serializer(result, key + '[]', option.value);
+	                    }
+	                    else {
+	                        result = serializer(result, key, option.value);
+	                    }
+	                }
+	            }
+
+	            // Serialize if no selected options and options.empty is true
+	            if (!isSelectedOptions && options.empty) {
+	                result = serializer(result, key, '');
+	            }
+
+	            continue;
+	        }
+
+	        result = serializer(result, key, val);
+	    }
+
+	    // Check for all empty radio buttons and serialize them with key=""
+	    if (options.empty) {
+	        for (var key in radio_store) {
+	            if (!radio_store[key]) {
+	                result = serializer(result, key, '');
+	            }
+	        }
+	    }
+
+	    return result;
+	}
+
+	function parse_keys(string) {
+	    var keys = [];
+	    var prefix = /^([^\[\]]*)/;
+	    var children = new RegExp(brackets);
+	    var match = prefix.exec(string);
+
+	    if (match[1]) {
+	        keys.push(match[1]);
+	    }
+
+	    while ((match = children.exec(string)) !== null) {
+	        keys.push(match[1]);
+	    }
+
+	    return keys;
+	}
+
+	function hash_assign(result, keys, value) {
+	    if (keys.length === 0) {
+	        result = value;
+	        return result;
+	    }
+
+	    var key = keys.shift();
+	    var between = key.match(/^\[(.+?)\]$/);
+
+	    if (key === '[]') {
+	        result = result || [];
+
+	        if (Array.isArray(result)) {
+	            result.push(hash_assign(null, keys, value));
+	        }
+	        else {
+	            // This might be the result of bad name attributes like "[][foo]",
+	            // in this case the original `result` object will already be
+	            // assigned to an object literal. Rather than coerce the object to
+	            // an array, or cause an exception the attribute "_values" is
+	            // assigned as an array.
+	            result._values = result._values || [];
+	            result._values.push(hash_assign(null, keys, value));
+	        }
+
+	        return result;
+	    }
+
+	    // Key is an attribute name and can be assigned directly.
+	    if (!between) {
+	        result[key] = hash_assign(result[key], keys, value);
+	    }
+	    else {
+	        var string = between[1];
+	        // +var converts the variable into a number
+	        // better than parseInt because it doesn't truncate away trailing
+	        // letters and actually fails if whole thing is not a number
+	        var index = +string;
+
+	        // If the characters between the brackets is not a number it is an
+	        // attribute name and can be assigned directly.
+	        if (isNaN(index)) {
+	            result = result || {};
+	            result[string] = hash_assign(result[string], keys, value);
+	        }
+	        else {
+	            result = result || [];
+	            result[index] = hash_assign(result[index], keys, value);
+	        }
+	    }
+
+	    return result;
+	}
+
+	// Object/hash encoding serializer.
+	function hash_serializer(result, key, value) {
+	    var matches = key.match(brackets);
+
+	    // Has brackets? Use the recursive assignment function to walk the keys,
+	    // construct any missing objects in the result tree and make the assignment
+	    // at the end of the chain.
+	    if (matches) {
+	        var keys = parse_keys(key);
+	        hash_assign(result, keys, value);
+	    }
+	    else {
+	        // Non bracket notation can make assignments directly.
+	        var existing = result[key];
+
+	        // If the value has been assigned already (for instance when a radio and
+	        // a checkbox have the same name attribute) convert the previous value
+	        // into an array before pushing into it.
+	        //
+	        // NOTE: If this requirement were removed all hash creation and
+	        // assignment could go through `hash_assign`.
+	        if (existing) {
+	            if (!Array.isArray(existing)) {
+	                result[key] = [ existing ];
+	            }
+
+	            result[key].push(value);
+	        }
+	        else {
+	            result[key] = value;
+	        }
+	    }
+
+	    return result;
+	}
+
+	// urlform encoding serializer
+	function str_serialize(result, key, value) {
+	    // encode newlines as \r\n cause the html spec says so
+	    value = value.replace(/(\r)?\n/g, '\r\n');
+	    value = encodeURIComponent(value);
+
+	    // spaces should be '+' rather than '%20'.
+	    value = value.replace(/%20/g, '+');
+	    return result + (result ? '&' : '') + encodeURIComponent(key) + '=' + value;
+	}
+
+	module.exports = serialize;
+
+
+/***/ },
+/* 26 */
 /***/ function(module, exports) {
 
 	/**
@@ -2029,7 +2712,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = KeyEscapeUtils;
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -2154,7 +2837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -2172,16 +2855,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _assign = __webpack_require__(11);
 
-	var ReactChildren = __webpack_require__(27);
+	var ReactChildren = __webpack_require__(29);
 	var ReactComponent = __webpack_require__(12);
-	var ReactClass = __webpack_require__(28);
-	var ReactDOMFactories = __webpack_require__(30);
+	var ReactClass = __webpack_require__(30);
+	var ReactDOMFactories = __webpack_require__(32);
 	var ReactElement = __webpack_require__(3);
 	var ReactElementValidator = __webpack_require__(13);
-	var ReactPropTypes = __webpack_require__(35);
-	var ReactVersion = __webpack_require__(36);
+	var ReactPropTypes = __webpack_require__(37);
+	var ReactVersion = __webpack_require__(38);
 
-	var onlyChild = __webpack_require__(37);
+	var onlyChild = __webpack_require__(39);
 	var warning = __webpack_require__(2);
 
 	var createElement = ReactElement.createElement;
@@ -2247,7 +2930,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2263,11 +2946,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var PooledClass = __webpack_require__(25);
+	var PooledClass = __webpack_require__(27);
 	var ReactElement = __webpack_require__(3);
 
 	var emptyFunction = __webpack_require__(10);
-	var traverseAllChildren = __webpack_require__(38);
+	var traverseAllChildren = __webpack_require__(40);
 
 	var twoArgumentPooler = PooledClass.twoArgumentPooler;
 	var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -2443,7 +3126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactChildren;
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -2470,7 +3153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var emptyObject = __webpack_require__(17);
 	var invariant = __webpack_require__(4);
 	var keyMirror = __webpack_require__(18);
-	var keyOf = __webpack_require__(39);
+	var keyOf = __webpack_require__(41);
 	var warning = __webpack_require__(2);
 
 	var MIXINS_KEY = keyOf({ mixins: null });
@@ -3173,7 +3856,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -3324,7 +4007,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -3343,7 +4026,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactElement = __webpack_require__(3);
 	var ReactElementValidator = __webpack_require__(13);
 
-	var mapObject = __webpack_require__(40);
+	var mapObject = __webpack_require__(42);
 
 	/**
 	 * Create a factory that creates HTML tag elements.
@@ -3506,7 +4189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -3524,7 +4207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ExecutionEnvironment = __webpack_require__(16);
 
-	var performanceNow = __webpack_require__(42);
+	var performanceNow = __webpack_require__(44);
 	var warning = __webpack_require__(2);
 
 	var eventHandlers = [];
@@ -3746,9 +4429,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactInvalidSetStateWarningDevTool = __webpack_require__(33);
-	  var ReactNativeOperationHistoryDevtool = __webpack_require__(34);
-	  var ReactComponentTreeDevtool = __webpack_require__(29);
+	  var ReactInvalidSetStateWarningDevTool = __webpack_require__(35);
+	  var ReactNativeOperationHistoryDevtool = __webpack_require__(36);
+	  var ReactComponentTreeDevtool = __webpack_require__(31);
 	  ReactDebugTool.addDevtool(ReactInvalidSetStateWarningDevTool);
 	  ReactDebugTool.addDevtool(ReactComponentTreeDevtool);
 	  ReactDebugTool.addDevtool(ReactNativeOperationHistoryDevtool);
@@ -3762,7 +4445,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3778,12 +4461,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var ReactDebugTool = __webpack_require__(31);
+	var ReactDebugTool = __webpack_require__(33);
 
 	module.exports = { debugTool: ReactDebugTool };
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -3825,7 +4508,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports) {
 
 	/**
@@ -3867,7 +4550,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactNativeOperationHistoryDevtool;
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -4252,7 +4935,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactPropTypes;
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports) {
 
 	/**
@@ -4271,7 +4954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = '15.1.0';
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -4313,7 +4996,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -4334,7 +5017,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var getIteratorFn = __webpack_require__(9);
 	var invariant = __webpack_require__(4);
-	var KeyEscapeUtils = __webpack_require__(24);
+	var KeyEscapeUtils = __webpack_require__(26);
 	var warning = __webpack_require__(2);
 
 	var SEPARATOR = '.';
@@ -4477,7 +5160,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4516,7 +5199,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = keyOf;
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports) {
 
 	/**
@@ -4571,7 +5254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = mapObject;
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -4598,7 +5281,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = performance || {};
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4614,7 +5297,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @typechecks
 	 */
 
-	var performance = __webpack_require__(41);
+	var performance = __webpack_require__(43);
 
 	var performanceNow;
 
