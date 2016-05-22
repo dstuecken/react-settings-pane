@@ -158,7 +158,7 @@ It is possible to push the url state to the browser history using react-router o
 import { browserHistory } from 'react-router'
 
 // Pass a callback function to the SettingsPane property "onMenuItemClick"
-<SettingsPane onMenuItemClick={(menuItem) => browserHistory.push(menuItem.identifier)} />
+<SettingsPane onMenuItemClick={(menuItem) => browserHistory.push(menuItem.url)} />
 ```
 
 ## License
