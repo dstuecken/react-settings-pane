@@ -2,7 +2,6 @@
  * @react-settings-pane
  */
 import React, { PropTypes, Component, Children } from 'react'
-import ReactDOM from 'react-dom'
 import serialize from 'form-serialize'
 
 export default class SettingsPane extends Component {
@@ -109,7 +108,7 @@ export default class SettingsPane extends Component {
     if (this.form) {
       // Retrieve settings via form serialization
       // todo: Create custom form Components and retrieve form data from these components instead of serializing..
-      let newSettings = Object.assign({}, this.props.settings, serialize(this.form, {hash: true}))
+      let newSettings = Object.assign({}, this.props.settings, serialize(this.form, { hash: true }))
 
       // Update state with new settings
       if (JSON.stringify(newSettings) !== JSON.stringify(this.props.settings)) {

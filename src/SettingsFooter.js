@@ -21,7 +21,7 @@ export default class SettingsPage extends Component {
   closeClicked(ev) {
     ev.preventDefault()
 
-    this.props.onPaneLeave(false, this.props.settings, this.props.settings);
+    this.props.onPaneLeave(false, this.props.settings, this.props.settings)
   }
 
   /**

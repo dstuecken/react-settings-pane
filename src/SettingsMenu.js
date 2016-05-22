@@ -25,7 +25,7 @@ export default class SettingsMenu extends Component {
    * @returns array
    */
   menuItems() {
-    let props;
+    let props
 
     return this.props.items.map((item, i) => {
 
