@@ -26,7 +26,7 @@ export default class SettingsPage extends Component {
    * @param options
    * @returns {XML}
    */
-  renderWithOptions(options) {
+  renderWithOptions(/*options*/) {
     // todo: set onChange={this.props.onChange} to all form elements.
 
     return (
