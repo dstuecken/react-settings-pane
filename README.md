@@ -33,7 +33,7 @@ import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from 'react-s
 ```js
 // Render function of any of your components:
 render() {
-// You will maybe receive your settings from this.props or do a fetch request in your componentWIllMount
+// You will maybe receive your settings from this.props or do a fetch request in your componentWillMount
  //let settings = settings;
 
  // But here is an example of how it should look like:
