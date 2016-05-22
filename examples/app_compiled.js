@@ -69,35 +69,44 @@
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
 
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	    // You will maybe receive your settings from this.props or do a fetch request in your componentWillMount
+	    // but here is an example of how it should look like:
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+
+	    _this.state = {
+	      'mysettings.general.name': 'Dennis Stücken',
+	      'mysettings.general.username': 'dstuecken',
+	      'mysettings.general.color-theme': 'purple',
+	      'mysettings.general.email': 'dstuecken@react-settings-pane.com',
+	      'mysettings.general.picture': 'earth',
+	      'mysettings.profile.firstname': 'Dennis',
+	      'mysettings.profile.lastname': 'Stücken'
+	    };
+	    return _this;
 	  }
 
 	  _createClass(App, [{
+	    key: 'hidePrefs',
+	    value: function hidePrefs() {
+	      this.prefs.className = 'md-modal';
+	      this.overlay.style.visibility = '';
+	    }
+	  }, {
 	    key: 'showPrefs',
 	    value: function showPrefs() {
-	      this.prefs.className = 'modal show';
-	      //this.overlay.style.visibility = 'visible';
+	      this.prefs.className = 'md-modal show';
+	      this.overlay.style.visibility = 'visible';
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
-	      // You will maybe receive your settings from this.props or do a fetch request in your componentWIllMount
-	      //let settings = settings;
-
-	      // But here is an example of how it should look like:
-	      var settings = {
-	        'mysettings.general.name': 'Dennis Stücken',
-	        'mysettings.general.color-theme': 'purple',
-	        'mysettings.general.email': 'dstuecken@react-settings-pane.com',
-	        'mysettings.general.picture': 'earth',
-	        'mysettings.profile.firstname': 'Dennis',
-	        'mysettings.profile.lastname': 'Stücken'
-	      };
+	      // Get settings
+	      var settings = this.state;
 
 	      // Define your menu
 	      var menu = [{
@@ -156,7 +165,9 @@
 	           component: <select><option value="blue">Blue</option><option value="red">Red</option></select>,
 	         }
 	       ];
-	       */
+	        // Then use with:
+	       // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
+	        */
 
 	      // Save settings after close
 	      var leavePaneHandler = function leavePaneHandler(wasSaved, newSettings, oldSettings) {
@@ -164,28 +175,53 @@
 
 	        if (wasSaved && newSettings !== oldSettings) {
 	          // do something with the settings, e.g. save via ajax.
-
-	          //console.log(oldSettings);
-	          //console.log(newSettings);
+	          _this2.setState(newSettings);
 	        }
 
-	        _this2.prefs.className = 'modal';
+	        _this2.hidePrefs();
 	      };
 
 	      var settingsChanged = function settingsChanged(ev) {};
 
-	      // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
 	      // Return your Settings Pane
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'row' },
+	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { style: { textAlign: 'center', marginTop: '30px' } },
+	          { className: 'page-header' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'react-settings-pane ',
+	            _react2.default.createElement(
+	              'small',
+	              null,
+	              'Example'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { style: { margin: '30px 0 90px 0' } },
 	          _react2.default.createElement(
 	            'button',
 	            { onClick: this.showPrefs.bind(this), className: 'btn btn-default' },
 	            'Show Preferences'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          _react2.default.createElement(
+	            'h4',
+	            null,
+	            'Result'
+	          ),
+	          _react2.default.createElement(
+	            'pre',
+	            { className: 'well' },
+	            JSON.stringify(settings, null, 4)
 	          )
 	        ),
 	        _react2.default.createElement('div', { ref: function ref(_ref) {
@@ -195,7 +231,7 @@
 	          'div',
 	          { ref: function ref(_ref2) {
 	              return _this2.prefs = _ref2;
-	            }, className: 'modal' },
+	            }, className: 'md-modal' },
 	          _react2.default.createElement(
 	            _ReactSettingsPane.SettingsPane,
 	            { items: menu, index: '/settings/general', settings: settings, onChange: settingsChanged, onPaneLeave: leavePaneHandler },
@@ -211,10 +247,29 @@
 	                  { className: 'form-group' },
 	                  _react2.default.createElement(
 	                    'label',
-	                    { 'for': 'profileName' },
+	                    { 'for': 'generalName' },
 	                    'Name: '
 	                  ),
-	                  _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'mysettings.general.name', placeholder: 'Name', id: 'general.ame', onChange: settingsChanged, defaultValue: settings['mysettings.general.name'] })
+	                  _react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'mysettings.general.name', placeholder: 'Name', id: 'generalName', onChange: settingsChanged, defaultValue: settings['mysettings.general.name'] })
+	                ),
+	                _react2.default.createElement(
+	                  'fieldset',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement(
+	                    'label',
+	                    { 'for': 'generalUsername' },
+	                    'Username: '
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'input-group' },
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'input-group-addon', id: 'basic-addon1' },
+	                      '@'
+	                    ),
+	                    _react2.default.createElement('input', { type: 'text', name: 'mysettings.general.username', className: 'form-control', placeholder: 'Username', 'aria-describedby': 'basic-addon1', onChange: settingsChanged, defaultValue: settings['mysettings.general.username'] })
+	                  )
 	                ),
 	                _react2.default.createElement(
 	                  'fieldset',

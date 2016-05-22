@@ -4,25 +4,36 @@ import {SettingsPane, SettingsPage, SettingsContent, SettingsMenu} from '../dist
 
 class App extends React.Component {
 
-  showPrefs() {
-    this.prefs.className = 'modal show'
-    //this.overlay.style.visibility = 'visible';
-  }
+  constructor(props) {
+    super(props);
 
-  render() {
-    // You will maybe receive your settings from this.props or do a fetch request in your componentWIllMount
-     //let settings = settings;
-
-     // But here is an example of how it should look like:
-     let settings = {
+    // You will maybe receive your settings from this.props or do a fetch request in your componentWillMount
+    // but here is an example of how it should look like:
+    this.state = {
        'mysettings.general.name': 'Dennis Stücken',
+       'mysettings.general.username': 'dstuecken',
        'mysettings.general.color-theme': 'purple',
        'mysettings.general.email': 'dstuecken@react-settings-pane.com',
        'mysettings.general.picture': 'earth',
        'mysettings.profile.firstname': 'Dennis',
        'mysettings.profile.lastname': 'Stücken',
-     };
+    };
+  }
 
+  hidePrefs() {
+    this.prefs.className = 'md-modal'
+    this.overlay.style.visibility = '';
+  }
+
+  showPrefs() {
+    this.prefs.className = 'md-modal show'
+    this.overlay.style.visibility = 'visible';
+  }
+
+  render() {
+
+     // Get settings
+     let settings = this.state;
 
      // Define your menu
      const menu = [
@@ -89,6 +100,10 @@ class App extends React.Component {
          component: <select><option value="blue">Blue</option><option value="red">Red</option></select>,
        }
      ];
+
+     // Then use with:
+     // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
+
      */
 
      // Save settings after close
@@ -97,35 +112,48 @@ class App extends React.Component {
 
        if (wasSaved && newSettings !== oldSettings) {
          // do something with the settings, e.g. save via ajax.
-
-         //console.log(oldSettings);
-         //console.log(newSettings);
+         this.setState(newSettings);
        }
 
-       this.prefs.className = 'modal'
+       this.hidePrefs()
      };
-    
+
     let settingsChanged = (ev) => {
 
     }
 
-     // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
      // Return your Settings Pane
      return (
-       <div className="row">
-         <div style={{textAlign: 'center', marginTop: '30px'}}>
-           <button onClick={this.showPrefs.bind(this)} className="btn btn-default">Show Preferences</button>
+       <div>
+          <div className="page-header">
+            <h1>react-settings-pane <small>Example</small></h1>
+          </div>
+         <div style={{margin: '30px 0 90px 0'}}>
+           <button onClick={this.showPrefs.bind(this)} className="btn btn-default">
+             Show Preferences
+           </button>
          </div>
+         <p>
+           <h4>Result</h4>
+           <pre className="well">{JSON.stringify(settings, null, 4)}</pre>
+         </p>
          <div ref={(ref) => this.overlay = ref} className="overlay" />
 
-         <div ref={(ref) => this.prefs = ref} className="modal">
+         <div ref={(ref) => this.prefs = ref} className="md-modal">
            <SettingsPane items={menu} index="/settings/general" settings={settings} onChange={settingsChanged} onPaneLeave={leavePaneHandler}>
              <SettingsMenu headline="General Settings" />
              <SettingsContent header={true}>
                <SettingsPage handler="/settings/general">
                   <fieldset className="form-group">
-                    <label for="profileName">Name: </label>
-                    <input type="text" className="form-control" name="mysettings.general.name" placeholder="Name" id="general.ame" onChange={settingsChanged} defaultValue={settings['mysettings.general.name']} />
+                    <label for="generalName">Name: </label>
+                    <input type="text" className="form-control" name="mysettings.general.name" placeholder="Name" id="generalName" onChange={settingsChanged} defaultValue={settings['mysettings.general.name']} />
+                  </fieldset>
+                  <fieldset className="form-group">
+                    <label for="generalUsername">Username: </label>
+                    <div className="input-group">
+                      <span className="input-group-addon" id="basic-addon1">@</span>
+                      <input type="text" name="mysettings.general.username" className="form-control" placeholder="Username" aria-describedby="basic-addon1" onChange={settingsChanged} defaultValue={settings['mysettings.general.username']}  />
+                    </div>
                   </fieldset>
                   <fieldset className="form-group">
                     <label for="generalMail">E-Mail address: </label>
