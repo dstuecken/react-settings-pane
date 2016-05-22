@@ -12,9 +12,9 @@ npm i react-settings-pane --save
 
 ## Demo
 
-[Coming Soon](http://www.dvlpr.de/react/settings-pane/examples/index.html)
+[Open Demo](http://www.dvlpr.de/react/settings-pane/examples/index.html)
 
-Demo file in repository: ./examples/index.html
+For a local demo check: examples/index.html
 
 <img src="https://raw.githubusercontent.com/dstuecken/react-settings-pane/master/examples/demo.png" width="500">
 
