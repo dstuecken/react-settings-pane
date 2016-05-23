@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
 import { SettingsPane, SettingsPage, SettingsContent, SettingsMenu } from '../dist/ReactSettingsPane'
 import assert from 'assert'
 
