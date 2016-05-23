@@ -1,6 +1,7 @@
 # react-settings-pane
 
 [![npm version](https://img.shields.io/npm/v/react-settings-pane.svg?style=flat-square)](https://www.npmjs.com/package/react-settings-pane) 
+[![Build Status](https://travis-ci.org/dstuecken/react-settings-pane.svg?branch=master)](https://travis-ci.org/dstuecken/react-settings-pane)
 
 > *React Component to display a neat settings page that enables customizable configuration in your app. It should easily integrate into popup components to also display it as a popup.*
 
