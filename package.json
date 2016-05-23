@@ -1,7 +1,7 @@
 {
   "name": "react-settings-pane",
   "version": "0.1.3",
-  "description": "",
+  "description": "React Component to display a neat settings page for customizable configuration in your app",
   "main": "lib/index",
   "files": [
     "*.md",
@@ -24,7 +24,7 @@
     "build:example": "cd examples && webpack",
     "lint": "eslint examples src test",
     "test": "npm run lint && npm run test:node && npm run test:browser",
-    "test:node": "mocha --compilers js:babel-register --recursive ./test/*.spec.js",
+    "test:node": "mocha --compilers js:babel-register --require test/testHelper.js --recursive ./test/*.spec.js",
     "test:browser": "karma start",
     "test:cov": "npm run test:cov:browser && npm run test:cov:node && npm run test:cov:report",
     "test:cov:node": "babel-node $(npm bin)/isparta cover $(npm bin)/_mocha report --dir ./coverage/node-coverage -- --recursive ./test/node",
@@ -64,6 +64,7 @@
     "eslint-plugin-react": "^3.15.0",
     "expect": "^1.13.0",
     "gulp": "^3.9.1",
+    "jsdom": "^9.1.0",
     "karma": "^0.13.3",
     "karma-chrome-launcher": "^0.2.0",
     "karma-coverage": "^0.5.3",
@@ -75,6 +76,7 @@
     "karma-sourcemap-loader": "^0.3.5",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.3.4",
+    "react-addons-test-utils": "^15.1.0",
     "webpack": "^1.12.9",
     "webpack-stream": "^3.2.0"
   }

@@ -18,96 +18,9 @@ class App extends React.Component {
        'mysettings.profile.firstname': 'Dennis',
        'mysettings.profile.lastname': 'Stücken',
     };
-  }
-
-  hidePrefs() {
-    this.prefs.className = 'md-modal'
-    this.overlay.style.visibility = '';
-  }
-
-  showPrefs() {
-    this.prefs.className = 'md-modal show'
-    this.overlay.style.visibility = 'visible';
-  }
-
-  render() {
-
-     // Get settings
-     let settings = this.state;
-
-     // Define your menu
-     const menu = [
-       {
-         title: 'General',          // Title that is displayed as text in the menu
-         url: '/settings/general'  // Identifier (url-slug)
-       },
-       {
-         title: 'Profile',
-         url: '/settings/profile'
-       },
-       {
-         title: 'Notifications',
-         url: '/settings/notifications'
-       },
-       {
-         title: 'Language',
-         url: '/settings/language'
-       },
-       {
-         title: 'Appearance',
-         url: '/settings/appearance'
-       },
-       {
-         title: 'Plugins',
-         url: '/settings/plugins'
-       },
-       {
-         title: 'About',
-         url: '/settings/about'
-       }
-     ];
-
-     // Define one of your Settings pages
-    /*
-     const dynamicOptionsForGeneralPage = [
-       {
-         label: 'Account',
-         type: 'headline',
-       },
-       {
-         id: 'mysettings.general.email',
-         label: 'E-Mail address',
-         type: 'text',
-       },
-       {
-         id: 'mysettings.general.password',
-         label: 'Password',
-         type: 'password',
-       },
-       {
-         id: 'mysettings.general.password-repeat',
-         label: 'Password repeat',
-         type: 'password',
-       },
-       {
-         label: 'Appearance',
-         type: 'headline',
-       },
-       {
-         id: 'mysettings.general.color-theme',
-         label: 'Color Theme',
-         type: 'custom',
-         component: <select><option value="blue">Blue</option><option value="red">Red</option></select>,
-       }
-     ];
-
-     // Then use with:
-     // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
-
-     */
 
      // Save settings after close
-     let leavePaneHandler = (wasSaved, newSettings, oldSettings) => {
+     this._leavePaneHandler = (wasSaved, newSettings, oldSettings) => {
        // "wasSaved" indicates wheather the pane was just closed or the save button was clicked.
 
        if (wasSaved && newSettings !== oldSettings) {
@@ -118,9 +31,97 @@ class App extends React.Component {
        this.hidePrefs()
      };
 
-    let settingsChanged = (ev) => {
+    // React if a single setting changed
+    this._settingsChanged = (ev) => {
 
     }
+
+    // Define your menu
+    this._menu = [
+      {
+        title: 'General',          // Title that is displayed as text in the menu
+        url: '/settings/general'  // Identifier (url-slug)
+      },
+      {
+        title: 'Profile',
+        url: '/settings/profile'
+      },
+      {
+        title: 'Notifications',
+        url: '/settings/notifications'
+      },
+      {
+        title: 'Language',
+        url: '/settings/language'
+      },
+      {
+        title: 'Appearance',
+        url: '/settings/appearance'
+      },
+      {
+        title: 'Plugins',
+        url: '/settings/plugins'
+      },
+      {
+        title: 'About',
+        url: '/settings/about'
+      }
+    ];
+  }
+
+  hidePrefs() {
+    this.prefs.className = 'md-modal';
+    this.overlay.style.visibility = '';
+  }
+
+  showPrefs() {
+    this.prefs.className = 'md-modal show'
+    this.overlay.style.visibility = 'visible';
+  }
+
+  render() {
+     // Get settings
+     let settings = this.state;
+
+     // Define one of your Settings pages
+    /*
+     const dynamicOptionsForGeneralPage = [
+       {
+         key: null
+         label: 'Account',
+         type: 'headline',
+       },
+       {
+         key: 'mysettings.general.email',
+         label: 'E-Mail address',
+         type: 'text',
+       },
+       {
+         key: 'mysettings.general.password',
+         label: 'Password',
+         type: 'password',
+       },
+       {
+         key: 'mysettings.general.password-repeat',
+         label: 'Password repeat',
+         type: 'password',
+       },
+       {
+         key: null,
+         label: 'Appearance',
+         type: 'headline',
+       },
+       {
+         key: 'mysettings.general.color-theme',
+         label: 'Color Theme',
+         type: 'custom',
+         component: <select><option value="blue">Blue</option><option value="red">Red</option></select>,
+       }
+     ];
+
+     // Then use with:
+     // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
+     */
 
      // Return your Settings Pane
      return (
@@ -140,28 +141,28 @@ class App extends React.Component {
          <div ref={(ref) => this.overlay = ref} className="overlay" />
 
          <div ref={(ref) => this.prefs = ref} className="md-modal">
-           <SettingsPane items={menu} index="/settings/general" settings={settings} onChange={settingsChanged} onPaneLeave={leavePaneHandler}>
+           <SettingsPane items={this._menu} index="/settings/general" settings={settings} onChange={this._settingsChanged} onPaneLeave={this._leavePaneHandler}>
              <SettingsMenu headline="General Settings" />
              <SettingsContent header={true}>
                <SettingsPage handler="/settings/general">
                   <fieldset className="form-group">
                     <label for="generalName">Name: </label>
-                    <input type="text" className="form-control" name="mysettings.general.name" placeholder="Name" id="generalName" onChange={settingsChanged} defaultValue={settings['mysettings.general.name']} />
+                    <input type="text" className="form-control" name="mysettings.general.name" placeholder="Name" id="generalName" onChange={this._settingsChanged} defaultValue={settings['mysettings.general.name']} />
                   </fieldset>
                   <fieldset className="form-group">
                     <label for="generalUsername">Username: </label>
                     <div className="input-group">
                       <span className="input-group-addon" id="basic-addon1">@</span>
-                      <input type="text" name="mysettings.general.username" className="form-control" placeholder="Username" aria-describedby="basic-addon1" onChange={settingsChanged} defaultValue={settings['mysettings.general.username']}  />
+                      <input type="text" name="mysettings.general.username" className="form-control" placeholder="Username" aria-describedby="basic-addon1" onChange={this._settingsChanged} defaultValue={settings['mysettings.general.username']}  />
                     </div>
                   </fieldset>
                   <fieldset className="form-group">
                     <label for="generalMail">E-Mail address: </label>
-                    <input type="text" className="form-control" name="mysettings.general.email" placeholder="E-Mail Address" id="generalMail" onChange={settingsChanged} defaultValue={settings['mysettings.general.email']} />
+                    <input type="text" className="form-control" name="mysettings.general.email" placeholder="E-Mail Address" id="generalMail" onChange={this._settingsChanged} defaultValue={settings['mysettings.general.email']} />
                   </fieldset>
                   <fieldset className="form-group">
                     <label for="generalPic">Picture: </label>
-                    <input type="text" className="form-control" name="mysettings.general.picture" placeholder="Picture" id="generalPic" onChange={settingsChanged} defaultValue={settings['mysettings.general.picture']} />
+                    <input type="text" className="form-control" name="mysettings.general.picture" placeholder="Picture" id="generalPic" onChange={this._settingsChanged} defaultValue={settings['mysettings.general.picture']} />
                   </fieldset>
                   <fieldset className="form-group">
                     <label for="profileColor">Color-Theme: </label>
@@ -176,15 +177,15 @@ class App extends React.Component {
                <SettingsPage handler="/settings/profile">
                    <fieldset className="form-group">
                      <label for="profileFirstname">Firstname: </label>
-                     <input type="text" className="form-control" name="mysettings.profile.firstname" placeholder="Firstname" id="profileFirstname" onChange={settingsChanged} defaultValue={settings['mysettings.profile.firstname']} />
+                     <input type="text" className="form-control" name="mysettings.profile.firstname" placeholder="Firstname" id="profileFirstname" onChange={this._settingsChanged} defaultValue={settings['mysettings.profile.firstname']} />
                    </fieldset>
                    <fieldset className="form-group">
                      <label for="profileLastname">Lastname: </label>
-                     <input type="text" className="form-control" name="mysettings.profile.lastname" placeholder="Lastname" id="profileLastname" onChange={settingsChanged} defaultValue={settings['mysettings.profile.lastname']} />
+                     <input type="text" className="form-control" name="mysettings.profile.lastname" placeholder="Lastname" id="profileLastname" onChange={this._settingsChanged} defaultValue={settings['mysettings.profile.lastname']} />
                    </fieldset>
                    <fieldset className="form-group">
                      <label for="profileBiography">Biography: </label>
-                     <textarea className="form-control" name="mysettings.profile.biography" placeholder="Biography" id="profileBiography" onChange={settingsChanged} defaultValue={settings['mysettings.profile.biography']} />
+                     <textarea className="form-control" name="mysettings.profile.biography" placeholder="Biography" id="profileBiography" onChange={this._settingsChanged} defaultValue={settings['mysettings.profile.biography']} />
                    </fieldset>
                </SettingsPage>
              </SettingsContent>

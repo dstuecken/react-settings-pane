@@ -6,7 +6,7 @@
 
 ## Installation
 
-```
+```bash
 npm i react-settings-pane --save
 ```
 
@@ -58,12 +58,12 @@ render() {
  // Define one of your Settings pages
  const dynamicOptionsForProfilePage = [
    {
-     id: 'mysettings.general.email',
+     key: 'mysettings.general.email',
      label: 'E-Mail address',
      type: 'text',
    },
    {
-     id: 'mysettings.general.password',
+     key: 'mysettings.general.password',
      label: 'Password',
      type: 'password',
    }

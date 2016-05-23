@@ -34,8 +34,18 @@ export default class SettingsPane extends Component {
       items: props.items,
       settings: props.settings
     }
+
+    this._handleSubmit = this.handleSubmit.bind(this)
   }
 
+  /**
+   * Adds an event listener
+   *
+   * @param node
+   * @param event
+   * @param handler
+   * @returns {{remove: (function())}}
+   */
   addEvent(node, event, handler) {
     node.addEventListener(event, handler)
 
@@ -47,6 +57,11 @@ export default class SettingsPane extends Component {
     }
   }
 
+  /**
+   * Handle keyup and close pane if esc key was pressed
+   *
+   * @param ev
+   */
   handleKeyUp(ev) {
     if (ev.keyCode === 27) {
       this.props.onPaneLeave(false, this.state.settings, this.state.settings)
@@ -55,6 +70,9 @@ export default class SettingsPane extends Component {
 
   }
 
+  /**
+   * Component was loaded
+   */
   load() {
     this._keyUpListener = this.addEvent(document, 'keyup', this.handleKeyUp.bind(this))
   }
@@ -159,7 +177,7 @@ export default class SettingsPane extends Component {
     // Return JSX
     return (
       <div className="settings-pane">
-        <form ref={(ref) => this.form = ref} className="settings" onSubmit={this.handleSubmit.bind(this)}>
+        <form ref={(ref) => this.form = ref} className="settings" onSubmit={this._handleSubmit}>
           {childrenWithProps}
         </form>
       </div>

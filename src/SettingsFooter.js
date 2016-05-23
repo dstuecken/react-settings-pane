@@ -15,6 +15,12 @@ export default class SettingsPage extends Component {
     onPaneLeave: PropTypes.func.isRequired
   };
 
+  constructor(props) {
+    super(props)
+
+    this._closeClicked = this.closeClicked.bind(this)
+  }
+
   /**
    * Close was clicked
    */
@@ -33,7 +39,7 @@ export default class SettingsPage extends Component {
     return (
       <div className="settings-footer">
         <div className="settings-close">
-          <button className="btn btn-default" onClick={this.closeClicked.bind(this)}>Close</button>
+          <button className="btn btn-default" onClick={this._closeClicked}>Close</button>
         </div>
         <button className="btn btn-primary">Save</button>
       </div>

@@ -11,6 +11,12 @@ export default class MenuItem extends Component {
     onMenuItemClick: PropTypes.func
   };
 
+  constructor(props) {
+    super(props)
+
+    this._clicked = this.clicked.bind(this)
+  }
+
   /**
    * MenuItem was clicked
    *
@@ -41,7 +47,7 @@ export default class MenuItem extends Component {
 
     return (
       <li title={title} className={itemsClassName}>
-        <a href={url} onClick={this.clicked.bind(this)}>{title}</a>
+        <a href={url} onClick={this._clicked}>{title}</a>
       </li>
     )
   }
