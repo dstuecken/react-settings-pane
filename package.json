@@ -2,12 +2,13 @@
   "name": "react-settings-pane",
   "version": "0.1.3",
   "description": "React Component to display a neat settings page for customizable configuration in your app",
-  "main": "lib/index",
+  "main": "lib/index.js",
   "files": [
     "*.md",
     "dist",
     "LICENSE",
-    "src"
+    "src",
+    "lib"
   ],
   "repository": "dstuecken/react-settings-pane",
   "authors": [
@@ -67,5 +68,10 @@
     "react-addons-test-utils": "^15.1.0",
     "webpack": "^1.12.9",
     "webpack-stream": "^3.2.0"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test",
+    "example": "examples"
   }
 }
