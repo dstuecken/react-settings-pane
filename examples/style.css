@@ -80,7 +80,6 @@ form.settings {
 .settings, .settings-left {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: box;
   display: flex;
 }
 
@@ -109,7 +108,6 @@ form.settings {
 .settings .settings-content {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: box;
   display: flex;
   -webkit-box-flex: 1;
   -o-box-flex: 1;
@@ -139,7 +137,6 @@ form.settings {
 .settings .settings-page .settings-innerpage {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: box;
   display: flex;
   -webkit-box-orient: vertical;
   -o-box-orient: vertical;
@@ -180,7 +177,6 @@ form .settings-close {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: box;
   display: flex;
 }
 
@@ -196,7 +192,6 @@ form .settings-close {
 ul.settings-menu {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: box;
   display: flex;
   -webkit-box-orient: vertical;
   -o-box-orient: vertical;
@@ -241,7 +236,6 @@ ul.settings-menu li.menu-item a {
   flex-direction: row;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: box;
   display: flex;
   text-decoration: none;
   font-weight: 500;
