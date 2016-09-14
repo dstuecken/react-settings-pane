@@ -1,10 +1,13 @@
-/*
+/**
  * @react-settings-pane
+ *
+ * @copyright Dennis Stücken
+ * @licence MIT
  */
 import React, { PropTypes, Component, Children } from 'react'
 import serialize from 'form-serialize'
 
-export default class SettingsPane extends Component {
+export class SettingsPane extends Component {
 
   /**
    * PropTypes
@@ -18,7 +21,9 @@ export default class SettingsPane extends Component {
     index: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     onPaneLeave: PropTypes.func,
-    onMenuItemClick: PropTypes.func
+    onMenuItemClick: PropTypes.func,
+    closeButtonClass: PropTypes.string,
+    saveButtonClass: PropTypes.string
   };
 
   /**
@@ -184,3 +189,5 @@ export default class SettingsPane extends Component {
     )
   }
 }
+
+export default SettingsPane

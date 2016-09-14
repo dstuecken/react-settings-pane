@@ -1,9 +1,12 @@
-/*
+/**
  * @react-settings-pane
+ *
+ * @copyright Dennis Stücken
+ * @licence MIT
  */
 import React, { PropTypes, Component } from 'react'
 
-export default class SettingsPage extends Component {
+export class SettingsPage extends Component {
 
   /**
    * PropTypes
@@ -23,7 +26,6 @@ export default class SettingsPage extends Component {
   /**
    * Render page with dynamic options object
    *
-   * @param options
    * @returns {XML}
    */
   renderWithOptions(/*options*/) {
@@ -101,3 +103,5 @@ export default class SettingsPage extends Component {
     )
   }
 }
+
+export default SettingsPage

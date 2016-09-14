@@ -1,5 +1,8 @@
-/*
+/**
  * @react-settings-pane
+ *
+ * @copyright Dennis Stücken
+ * @licence MIT
  */
 import React, { PropTypes, Component } from 'react'
 

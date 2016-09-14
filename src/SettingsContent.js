@@ -1,10 +1,13 @@
-/*
+/**
  * @react-settings-pane
+ *
+ * @copyright Dennis Stücken
+ * @licence MIT
  */
 import React, { PropTypes, Component, Children } from 'react'
 import SettingsFooter from './SettingsFooter'
 
-export default class SettingsContent extends Component {
+export class SettingsContent extends Component {
 
   /**
    * PropTypes
@@ -75,8 +78,8 @@ export default class SettingsContent extends Component {
 
     if (this.props.header) {
       if (this.props.header === true) {
-        let currentItem = this.props.items.reduce((prev, item) => item.url === page ? item : prev)
-        header = <div className="headline"><h3>{currentItem.title}</h3></div>
+        const currentItem = this.props.items.reduce((prev, item) => item.url === page ? item : prev)
+        header = <div className="headline"><h3>{ currentItem.title }</h3></div>
       }
       else {
         header = this.props.header
@@ -89,7 +92,7 @@ export default class SettingsContent extends Component {
         {header}
         <div className="settings-page">
           <div className="scroller-wrap">
-            {this.renderPage(page)}
+            { this.renderPage(page) }
           </div>
         </div>
 
@@ -98,3 +101,5 @@ export default class SettingsContent extends Component {
     )
   }
 }
+
+export default SettingsContent

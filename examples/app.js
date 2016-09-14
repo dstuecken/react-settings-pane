@@ -143,29 +143,29 @@ class App extends React.Component {
          <div ref={(ref) => this.prefs = ref} className="md-modal">
            <SettingsPane items={this._menu} index="/settings/general" settings={settings} onChange={this._settingsChanged} onPaneLeave={this._leavePaneHandler}>
              <SettingsMenu headline="General Settings" />
-             <SettingsContent header={true}>
+             <SettingsContent header>
                <SettingsPage handler="/settings/general">
                   <fieldset className="form-group">
-                    <label for="generalName">Name: </label>
+                    <label htmlFor="generalName">Name: </label>
                     <input type="text" className="form-control" name="mysettings.general.name" placeholder="Name" id="generalName" onChange={this._settingsChanged} defaultValue={settings['mysettings.general.name']} />
                   </fieldset>
                   <fieldset className="form-group">
-                    <label for="generalUsername">Username: </label>
+                    <label htmlFor="generalUsername">Username: </label>
                     <div className="input-group">
                       <span className="input-group-addon" id="basic-addon1">@</span>
                       <input type="text" name="mysettings.general.username" className="form-control" placeholder="Username" aria-describedby="basic-addon1" onChange={this._settingsChanged} defaultValue={settings['mysettings.general.username']}  />
                     </div>
                   </fieldset>
                   <fieldset className="form-group">
-                    <label for="generalMail">E-Mail address: </label>
+                    <label htmlFor="generalMail">E-Mail address: </label>
                     <input type="text" className="form-control" name="mysettings.general.email" placeholder="E-Mail Address" id="generalMail" onChange={this._settingsChanged} defaultValue={settings['mysettings.general.email']} />
                   </fieldset>
                   <fieldset className="form-group">
-                    <label for="generalPic">Picture: </label>
+                    <label htmlFor="generalPic">Picture: </label>
                     <input type="text" className="form-control" name="mysettings.general.picture" placeholder="Picture" id="generalPic" onChange={this._settingsChanged} defaultValue={settings['mysettings.general.picture']} />
                   </fieldset>
                   <fieldset className="form-group">
-                    <label for="profileColor">Color-Theme: </label>
+                    <label htmlFor="profileColor">Color-Theme: </label>
                     <select name="mysettings.general.color-theme" id="profileColor" className="form-control" defaultValue={settings['mysettings.general.color-theme']}>
                       <option value="blue">Blue</option>
                       <option value="red">Red</option>
@@ -176,15 +176,15 @@ class App extends React.Component {
                </SettingsPage>
                <SettingsPage handler="/settings/profile">
                    <fieldset className="form-group">
-                     <label for="profileFirstname">Firstname: </label>
+                     <label htmlFor="profileFirstname">Firstname: </label>
                      <input type="text" className="form-control" name="mysettings.profile.firstname" placeholder="Firstname" id="profileFirstname" onChange={this._settingsChanged} defaultValue={settings['mysettings.profile.firstname']} />
                    </fieldset>
                    <fieldset className="form-group">
-                     <label for="profileLastname">Lastname: </label>
+                     <label htmlFor="profileLastname">Lastname: </label>
                      <input type="text" className="form-control" name="mysettings.profile.lastname" placeholder="Lastname" id="profileLastname" onChange={this._settingsChanged} defaultValue={settings['mysettings.profile.lastname']} />
                    </fieldset>
                    <fieldset className="form-group">
-                     <label for="profileBiography">Biography: </label>
+                     <label htmlFor="profileBiography">Biography: </label>
                      <textarea className="form-control" name="mysettings.profile.biography" placeholder="Biography" id="profileBiography" onChange={this._settingsChanged} defaultValue={settings['mysettings.profile.biography']} />
                    </fieldset>
                </SettingsPage>

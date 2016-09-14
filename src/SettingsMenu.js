@@ -1,10 +1,13 @@
-/*
+/**
  * @react-settings-pane
+ *
+ * @copyright Dennis Stücken
+ * @licence MIT
  */
 import React, { PropTypes, Component } from 'react'
 import MenuItem from './MenuItem'
 
-export default class SettingsMenu extends Component {
+export class SettingsMenu extends Component {
 
   /**
    * PropTypes
@@ -60,3 +63,5 @@ export default class SettingsMenu extends Component {
     )
   }
 }
+
+export default SettingsMenu

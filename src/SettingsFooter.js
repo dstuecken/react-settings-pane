@@ -1,9 +1,12 @@
-/*
+/**
  * @react-settings-pane
+ *
+ * @copyright Dennis Stücken
+ * @licence MIT
  */
 import React, { PropTypes, Component } from 'react'
 
-export default class SettingsPage extends Component {
+export class SettingsFooter extends Component {
 
   /**
    * PropTypes
@@ -12,13 +15,15 @@ export default class SettingsPage extends Component {
    */
   static propTypes = {
     settings: PropTypes.object.isRequired,
-    onPaneLeave: PropTypes.func.isRequired
+    onPaneLeave: PropTypes.func.isRequired,
+    closeButtonClass: PropTypes.string,
+    saveButtonClass: PropTypes.string
   };
 
   constructor(props) {
     super(props)
 
-    this._closeClicked = this.closeClicked.bind(this)
+    this.closeClicked = this.closeClicked.bind(this)
   }
 
   /**
@@ -39,10 +44,13 @@ export default class SettingsPage extends Component {
     return (
       <div className="settings-footer">
         <div className="settings-close">
-          <button className="btn btn-default" onClick={this._closeClicked}>Close</button>
+          <button className={ this.props.closeButtonClass || 'btn btn-default' } onClick={ this.closeClicked }>Close</button>
         </div>
-        <button className="btn btn-primary">Save</button>
+        <button className={ this.props.saveButtonClass || 'btn btn-primary' }>Save</button>
       </div>
     )
   }
 }
+
+export default SettingsFooter
+
