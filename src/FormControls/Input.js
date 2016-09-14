@@ -1,0 +1,23 @@
+/**
+ * @react-settings-pane
+ *
+ * @copyright Dennis Stücken
+ * @licence MIT
+ */
+import React, { PropTypes, Component } from 'react'
+
+export class Input extends Component {
+
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    value: PropTypes.string,
+    className: PropTypes.string
+  }
+
+  render() {
+    return <input type={ this.props.type || 'text' } className={ this.props.className } name={ this.props.name } value={ this.props.value } />
+  }
+}
+
+export default Input
