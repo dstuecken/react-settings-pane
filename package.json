@@ -1,6 +1,6 @@
 {
   "name": "react-settings-pane",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "React Component to display a neat settings page for customizable configuration in your app",
   "main": "lib/index.js",
   "files": [
