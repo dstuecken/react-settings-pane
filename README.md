@@ -71,19 +71,23 @@ render() {
  ];
 
  // Save settings after close
- let leavePaneHandler = (wasSaved, newSettings, oldSettings) => {
+ const leavePaneHandler = (wasSaved, newSettings, oldSettings) => {
    // "wasSaved" indicates wheather the pane was just closed or the save button was clicked.
 
    if (wasSaved && newSettings !== oldSettings) {
      // do something with the settings, e.g. save via ajax.
    }
  };
+ 
+ const settingsChanged = (changedSettings) {
+   // this is triggered onChange of the inputs
+ };
 
  // Return your Settings Pane
  return (
     <SettingsPane items={menu} index="/settings/general" settings={settings} onPaneLeave={leavePaneHandler}>
       <SettingsMenu headline="General Settings" />
-      <SettingsContent header={true}>
+      <SettingsContent closeButtonClass="secondary" saveButtonClass="primary" header={true}>
         <SettingsPage handler="/settings/general">
            <fieldset className="form-group">
              <label for="profileName">Name: </label>
@@ -122,6 +126,8 @@ render() {
 #### &lt;SettingsContent />
 
 - `header: bool|React.Component`: true = Title of current menu Item is displayed as an h2, can also be a React.Component for a custom headline. 
+- `closeButtonClass: string`: custom className for the close button  
+- `saveButtonClass: string`:  custon className for the save button
 
 #### &lt;SettingsPage />
 
