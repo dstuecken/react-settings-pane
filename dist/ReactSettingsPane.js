@@ -1842,7 +1842,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.SettingsPage = undefined;
+	exports.SettingsFooter = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1864,13 +1864,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 
-	var SettingsPage = exports.SettingsPage = function (_Component) {
-	  _inherits(SettingsPage, _Component);
+	var SettingsFooter = exports.SettingsFooter = function (_Component) {
+	  _inherits(SettingsFooter, _Component);
 
-	  function SettingsPage(props) {
-	    _classCallCheck(this, SettingsPage);
+	  function SettingsFooter(props) {
+	    _classCallCheck(this, SettingsFooter);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SettingsPage).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SettingsFooter).call(this, props));
 
 	    _this.closeClicked = _this.closeClicked.bind(_this);
 	    return _this;
@@ -1888,7 +1888,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   */
 
 
-	  _createClass(SettingsPage, [{
+	  _createClass(SettingsFooter, [{
 	    key: "closeClicked",
 	    value: function closeClicked(ev) {
 	      ev.preventDefault();
@@ -1926,10 +1926,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }]);
 
-	  return SettingsPage;
+	  return SettingsFooter;
 	}(_react.Component);
 
-	SettingsPage.propTypes = {
+	SettingsFooter.propTypes = {
 	  settings: _react.PropTypes.object.isRequired,
 	  onPaneLeave: _react.PropTypes.func.isRequired,
 	  closeButtonClass: _react.PropTypes.string,
