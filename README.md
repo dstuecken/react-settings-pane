@@ -79,7 +79,7 @@ render() {
    }
  };
  
- const settingsChanged = (changedSettings) {
+ const settingsChanged = (changedSettings) => {
    // this is triggered onChange of the inputs
  };
 
