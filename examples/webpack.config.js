@@ -1,18 +1,18 @@
-var webpack = require('webpack')
+const webpack = require("webpack");
 
-var config = {
-  entry: './app',
+const config = {
+  entry: "./app",
   module: {
-    loaders: [
-      { loaders: [ 'babel' ] }
+    rules: [
+      {
+        use: ["babel-loader", "eslint-loader"]
+      }
     ]
   },
   output: {
     filename: "app_compiled.js"
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin()
-  ]
-}
+  plugins: [new webpack.optimize.OccurrenceOrderPlugin()]
+};
 
-module.exports = config
+module.exports = config;

@@ -1,30 +1,22 @@
-var webpack = require('webpack')
+const webpack = require("webpack");
 
-var config = {
-  entry: './src/index',
+const config = {
+  entry: "./src/index",
   module: {
-    loaders: [
-      { test: /\.js$/, loaders: [ 'babel' ], exclude: /node_modules/ }
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ["babel-loader", "eslint-loader"]
+      }
     ]
   },
   output: {
     //filename: 'ReactSettingsPane.js',
-    library: 'ReactSettingsPane',
-    libraryTarget: 'umd'
+    library: "ReactSettingsPane",
+    libraryTarget: "umd"
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin()
-  ]
-}
+  plugins: [new webpack.optimize.OccurrenceOrderPlugin()]
+};
 
-if (process.env.NODE_ENV === 'production') {
-  config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    })
-  )
-}
-
-module.exports = config
+module.exports = config;

@@ -4,10 +4,10 @@
  * @copyright Dennis Stücken
  * @licence MIT
  */
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export default class MenuItem extends Component {
-
   static propTypes = {
     item: PropTypes.object.isRequired,
     switchContent: PropTypes.func.isRequired,
@@ -15,9 +15,9 @@ export default class MenuItem extends Component {
   };
 
   constructor(props) {
-    super(props)
+    super(props);
 
-    this._clicked = this.clicked.bind(this)
+    this._clicked = this.clicked.bind(this);
   }
 
   /**
@@ -26,18 +26,18 @@ export default class MenuItem extends Component {
    * @param ev
    */
   clicked(ev) {
-    ev.preventDefault()
+    ev.preventDefault();
 
     // If this is not a left click
     if (ev.button !== 0) {
-      return
+      return;
     }
 
     if (this.props.onMenuItemClick) {
-      this.props.onMenuItemClick(this.props.item)
+      this.props.onMenuItemClick(this.props.item);
     }
 
-    this.props.switchContent(this.props.item)
+    this.props.switchContent(this.props.item);
   }
 
   /**
@@ -46,14 +46,15 @@ export default class MenuItem extends Component {
    * @returns {XML}
    */
   render() {
-    let { title, url } = this.props.item, itemsClassName = this.props.active ? 'menu-item active' : 'menu-item'
+    let { title, url } = this.props.item,
+      itemsClassName = this.props.active ? "menu-item active" : "menu-item";
 
     return (
       <li title={title} className={itemsClassName}>
-        <a href={url} onClick={this._clicked}>{title}</a>
+        <a href={url} onClick={this._clicked}>
+          {title}
+        </a>
       </li>
-    )
+    );
   }
 }
-
-

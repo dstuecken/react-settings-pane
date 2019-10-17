@@ -1,12 +1,18 @@
-import { jsdom } from 'jsdom';
+import jsdom from "jsdom";
 
-const doc = jsdom('<!doctype html><html><body></body></html>');
-const win = doc.defaultView;
+const { JSDOM } = jsdom;
 
-global.document = doc;
-global.window = win;
+const { window } = new JSDOM(
+  "<!doctype html><html><body></body></html>",
+  {
+    url: "http://localhost"
+  }
+);
 
-Object.keys(window).forEach((key) => {
+global.document = window.document;
+global.window = window;
+
+Object.keys(window).forEach(key => {
   if (!(key in global)) {
     global[key] = window[key];
   }

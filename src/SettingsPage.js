@@ -4,10 +4,10 @@
  * @copyright Dennis Stücken
  * @licence MIT
  */
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export class SettingsPage extends Component {
-
   /**
    * PropTypes
    *
@@ -31,11 +31,7 @@ export class SettingsPage extends Component {
   renderWithOptions(/*options*/) {
     // todo: set onChange={this.props.onChange} to all form elements.
 
-    return (
-      <div>
-        Render With Options (not implemented, yet)
-      </div>
-    )
+    return <div>Render With Options (not implemented, yet)</div>;
   }
 
   /**
@@ -45,7 +41,7 @@ export class SettingsPage extends Component {
    * @returns {*}
    */
   renderWithContent(content) {
-    return content
+    return content;
   }
 
   /**
@@ -55,12 +51,14 @@ export class SettingsPage extends Component {
    */
   updateForm() {
     if (this.props.children) {
-      let settings = this.props.settings, key, elements
+      let settings = this.props.settings,
+        key,
+        elements;
       for (key in settings) {
         if (settings.hasOwnProperty(key)) {
-          elements = document.getElementsByName(key)
+          elements = document.getElementsByName(key);
           if (elements.length > 0 && elements[0]) {
-            elements[0].value = settings[key]
+            elements[0].value = settings[key];
           }
         }
       }
@@ -68,11 +66,11 @@ export class SettingsPage extends Component {
   }
 
   componentDidMount() {
-    this.updateForm()
+    this.updateForm();
   }
 
   componentDidUpdate() {
-    this.updateForm()
+    this.updateForm();
   }
 
   /**
@@ -82,10 +80,9 @@ export class SettingsPage extends Component {
    */
   content() {
     if (this.props.options) {
-      return this.renderWithOptions(this.props.options)
-    }
-    else if (this.props.children) {
-      return this.renderWithContent(this.props.children)
+      return this.renderWithOptions(this.props.options);
+    } else if (this.props.children) {
+      return this.renderWithContent(this.props.children);
     }
   }
 
@@ -95,13 +92,8 @@ export class SettingsPage extends Component {
    * @returns {XML}
    */
   render() {
-
-    return (
-      <div className="scroller settings-innerpage">
-        {this.content()}
-      </div>
-    )
+    return <div className="scroller settings-innerpage">{this.content()}</div>;
   }
 }
 
-export default SettingsPage
+export default SettingsPage;
