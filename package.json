@@ -18,7 +18,7 @@
   "homepage": "https://github.com/dstuecken/react-settings-pane",
   "bugs": "https://github.com/dstuecken/react-settings-pane/issues",
   "scripts": {
-    "build": "npm run build:commonjs & npm run build:umd & npm run build:umd:min & npm run build:example",
+    "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min && npm run build:example",
     "build:commonjs": "mkdirp lib && babel ./src -d lib",
     "build:umd": "webpack ./src -o dist/ReactSettingsPane.js",
     "build:umd:min": "cross-env NODE_ENV=production webpack ./src -o dist/ReactSettingsPane.min.js",
