@@ -4,10 +4,10 @@
  * @copyright Dennis Stücken
  * @licence MIT
  */
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export class SettingsFooter extends Component {
-
   /**
    * PropTypes
    *
@@ -21,18 +21,18 @@ export class SettingsFooter extends Component {
   };
 
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.closeClicked = this.closeClicked.bind(this)
+    this.closeClicked = this.closeClicked.bind(this);
   }
 
   /**
    * Close was clicked
    */
   closeClicked(ev) {
-    ev.preventDefault()
+    ev.preventDefault();
 
-    this.props.onPaneLeave(false, this.props.settings, this.props.settings)
+    this.props.onPaneLeave(false, this.props.settings, this.props.settings);
   }
 
   /**
@@ -44,13 +44,19 @@ export class SettingsFooter extends Component {
     return (
       <div className="settings-footer">
         <div className="settings-close">
-          <button className={ this.props.closeButtonClass || 'btn btn-default' } onClick={ this.closeClicked }>Close</button>
+          <button
+            className={this.props.closeButtonClass || "btn btn-default"}
+            onClick={this.closeClicked}
+          >
+            Close
+          </button>
         </div>
-        <button className={ this.props.saveButtonClass || 'btn btn-primary' }>Save</button>
+        <button className={this.props.saveButtonClass || "btn btn-primary"}>
+          Save
+        </button>
       </div>
-    )
+    );
   }
 }
 
-export default SettingsFooter
-
+export default SettingsFooter;

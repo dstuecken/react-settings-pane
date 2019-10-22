@@ -4,11 +4,11 @@
  * @copyright Dennis Stücken
  * @licence MIT
  */
-import React, { PropTypes, Component } from 'react'
-import MenuItem from './MenuItem'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import MenuItem from "./MenuItem";
 
 export class SettingsMenu extends Component {
-
   /**
    * PropTypes
    *
@@ -28,10 +28,9 @@ export class SettingsMenu extends Component {
    * @returns array
    */
   menuItems() {
-    let props
+    let props;
 
     return this.props.items.map((item, i) => {
-
       // Define all props for this MenuItem
       props = {
         item,
@@ -39,12 +38,10 @@ export class SettingsMenu extends Component {
         onMenuItemClick: this.props.onMenuItemClick,
         switchContent: this.props.switchContent,
         key: i
-      }
+      };
 
-      return (
-        <MenuItem {...props} />
-      )
-    })
+      return <MenuItem {...props} />;
+    });
   }
 
   /**
@@ -56,12 +53,16 @@ export class SettingsMenu extends Component {
     return (
       <div className="settings-left">
         <ul className="settings-menu">
-          {this.props.headline ? <li className="headline">{this.props.headline}</li> : ''}
+          {this.props.headline ? (
+            <li className="headline">{this.props.headline}</li>
+          ) : (
+            ""
+          )}
           {this.menuItems()}
         </ul>
       </div>
-    )
+    );
   }
 }
 
-export default SettingsMenu
+export default SettingsMenu;

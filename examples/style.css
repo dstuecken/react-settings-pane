@@ -77,7 +77,8 @@ form.settings {
   flex-direction: row;
 }
 
-.settings, .settings-left {
+.settings,
+.settings-left {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -92,7 +93,7 @@ form.settings {
   background-color: #3f3f3f;
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, .05), inset 0 -1px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   width: 190px;
   flex-shrink: 0;
@@ -180,7 +181,8 @@ form .settings-close {
   display: flex;
 }
 
-.scroller-wrap, .scroller-wrap .scroller {
+.scroller-wrap,
+.scroller-wrap .scroller {
   min-height: 1px;
   -webkit-box-flex: 1;
   -o-box-flex: 1;
@@ -218,7 +220,7 @@ ul.settings-menu li.headline {
   padding-top: 20px;
   padding-left: 18px;
   padding-bottom: 20px;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, .05), inset 0 -1px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   white-space: normal;
 }
@@ -240,8 +242,7 @@ ul.settings-menu li.menu-item a {
   text-decoration: none;
   font-weight: 500;
   padding: 8px 6px 10px 20px;
-  color: hsla(0, 0%, 100%, .3);
-  display: inline-block;
+  color: hsla(0, 0%, 100%, 0.3);
   font-size: 14px;
   line-height: 1.25em;
   white-space: nowrap;
@@ -257,7 +258,7 @@ ul.settings-menu li.menu-item.active a {
 }
 
 ul.settings-menu li.menu-item a:hover:before {
-  opacity: .3;
+  opacity: 0.3;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
   filter: alpha(opacity=30);
 }
@@ -267,16 +268,17 @@ ul.settings-menu li.menu-item a:before {
   top: 0;
   left: 0;
   height: 100%;
-  content: ' ';
+  content: " ";
   border-left: 4px solid #5f7187;
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
 }
 
-ul.settings-menu li.menu-item.active a, ul.settings-menu li.menu-item a:hover {
-  background: -webkit-linear-gradient(left, #33363b 85%, null);
-  background: linear-gradient(90deg, #33363b 85%, null);
+ul.settings-menu li.menu-item.active a,
+ul.settings-menu li.menu-item a:hover {
+  background: -webkit-linear-gradient(left, #33363b 85%, transparent);
+  background: linear-gradient(90deg, #33363b 85%, transparent);
   color: #fff;
 }
 
