@@ -82,7 +82,7 @@
     "gulp": "^4.0.2",
     "jsdom": "^15.1.1",
     "mkdirp": "^0.5.1",
-    "mocha": "^6.2.1",
+    "mocha": "^10.2.0",
     "nyc": "^14.1.1",
     "prettier": "^1.18.2",
     "react-addons-test-utils": "^15.1.0",
